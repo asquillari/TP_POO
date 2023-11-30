@@ -1,4 +1,4 @@
-package frontend;
+package TP_POO.frontend;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

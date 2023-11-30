@@ -1,4 +1,4 @@
-package backend.model;
+package TP_POO.backend.model;
 
 public class Ellipse implements Figure {
 

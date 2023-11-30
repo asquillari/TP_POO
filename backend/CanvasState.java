@@ -1,6 +1,6 @@
-package backend;
+package TP_POO.backend;
 
-import backend.model.Figure;
+import TP_POO.backend.model.Figure;
 
 import java.util.ArrayList;
 import java.util.List;

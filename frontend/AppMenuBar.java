@@ -1,4 +1,4 @@
-package frontend;
+package TP_POO.frontend;
 
 import javafx.scene.control.*;
 

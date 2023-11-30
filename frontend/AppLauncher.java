@@ -1,6 +1,6 @@
-package frontend;
+package TP_POO.frontend;
 
-import backend.CanvasState;
+import TP_POO.backend.CanvasState;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
