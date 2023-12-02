@@ -1,6 +1,6 @@
 package TP_POO.backend.model;
 
-public class Ellipse implements Figure {
+public class Ellipse extends Figure {
 
     protected final Point centerPoint;
     protected final double sMayorAxis, sMinorAxis;
