@@ -19,5 +19,9 @@ public class Circle<P extends Point> extends Ellipse<P> {
         return sMayorAxis/2;
     }
 
+    public Figure create(Point startPoint, Point endPoint){
+        double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
+        return new Circle<>(startPoint, circleRadius);
+    }
 
 }
