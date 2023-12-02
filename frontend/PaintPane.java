@@ -58,12 +58,12 @@ public class PaintPane extends BorderPane {
 		this.statusPane = statusPane;
 
 		Map<ToggleButton, Tool> toolsMap = new HashMap<>();
-		toolsMap.put(selectionButton, SelectionTool);
-		toolsMap.put(rectangleButton, RectangleTool);
-		toolsMap.put(circleButton, CircleTool);
-		toolsMap.put(squareButton, SquareTool);
-		toolsMap.put(ellipseButton, EllipseTool);
-		toolsMap.put(deleteButton, DeleteTool);
+		toolsMap.put(selectionButton, null);
+		toolsMap.put(rectangleButton, new  FigureTool(canvasState, this, Rectangle.class);
+		toolsMap.put(circleButton, new FigureTool(canvasState, this, Circle.class));
+		toolsMap.put(squareButton, new FigureTool(canvasState, this, Square.class));
+		toolsMap.put(ellipseButton, new FigureTool(canvasState, this, Ellipse.class));
+		toolsMap.put(deleteButton, null);
 
 		ToggleGroup tools = new ToggleGroup();
 		for (ToggleButton tool : toolsMap.keySet()) {
@@ -92,22 +92,10 @@ public class PaintPane extends BorderPane {
 				return ;
 			}
 			Figure newFigure = null;
-			if(rectangleButton.isSelected()) {
-				newFigure = new Rectangle(startPoint, endPoint);
-			}
-			else if(circleButton.isSelected()) {
-				double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Circle(startPoint, circleRadius);
-			} else if(squareButton.isSelected()) {
-				double size = Math.abs(endPoint.getX() - startPoint.getX());
-				newFigure = new Square(startPoint, size);
-			} else if(ellipseButton.isSelected()) {
-				Point centerPoint = new Point(Math.abs(endPoint.x + startPoint.x) / 2, (Math.abs((endPoint.y + startPoint.y)) / 2));
-				double sMayorAxis = Math.abs(endPoint.x - startPoint.x);
-				double sMinorAxis = Math.abs(endPoint.y - startPoint.y);
-				newFigure = new Ellipse(centerPoint, sMayorAxis, sMinorAxis);
-			} else {
-				return ;
+			for(ToggleButton button : toolsMap.keySet()){
+				if(button.isSelected()){
+					newFigure = toolsMap.get(button).activate(startPoint, endPoint);
+				}
 			}
 			figureColorMap.put(newFigure, fillColorPicker.getValue());
 			canvasState.addFigure(newFigure);

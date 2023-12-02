@@ -1,6 +1,7 @@
 package TP_POO.frontend;
 
 import TP_POO.backend.CanvasState;
+import TP_POO.backend.model.Point;
 
 public abstract class Tool{
     protected final CanvasState canvasState;
@@ -11,5 +12,4 @@ public abstract class Tool{
         this.paintPane = paintPane;
     }
 
-    public abstract void activate();
 }
