@@ -23,7 +23,4 @@ public class Rectangle<P extends Point> extends Figure {
         return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
     }
 
-    public Figure activate(Point startPoint, Point endPoint){
-        return new Rectangle<>(startPoint, endPoint);
-    }
 }
