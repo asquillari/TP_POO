@@ -35,9 +35,6 @@ public class PaintPane extends BorderPane {
 	ToggleButton ellipseButton = new ToggleButton("Elipse");
 	ToggleButton deleteButton = new ToggleButton("Borrar");
 
-	//agregamos todas al mapa con sus respectivas acciones
-
-
 	// Selector de color de relleno
 	ColorPicker fillColorPicker = new ColorPicker(defaultFillColor);
 
@@ -56,23 +53,15 @@ public class PaintPane extends BorderPane {
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
-
-		Map<ToggleButton, Tool> toolsMap = new HashMap<>();
-		toolsMap.put(selectionButton, null);
-		toolsMap.put(rectangleButton, new  FigureTool(canvasState, this, Rectangle.class);
-		toolsMap.put(circleButton, new FigureTool(canvasState, this, Circle.class));
-		toolsMap.put(squareButton, new FigureTool(canvasState, this, Square.class));
-		toolsMap.put(ellipseButton, new FigureTool(canvasState, this, Ellipse.class));
-		toolsMap.put(deleteButton, null);
-
+		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton};
 		ToggleGroup tools = new ToggleGroup();
-		for (ToggleButton tool : toolsMap.keySet()) {
+		for (ToggleButton tool : toolsArr) {
 			tool.setMinWidth(90);
 			tool.setToggleGroup(tools);
 			tool.setCursor(Cursor.HAND);
 		}
 		VBox buttonsBox = new VBox(10);
-		buttonsBox.getChildren().addAll(toolsMap.keySet());
+		buttonsBox.getChildren().addAll(toolsArr);
 		buttonsBox.getChildren().add(fillColorPicker);
 		buttonsBox.setPadding(new Insets(5));
 		buttonsBox.setStyle("-fx-background-color: #999");
@@ -92,10 +81,22 @@ public class PaintPane extends BorderPane {
 				return ;
 			}
 			Figure newFigure = null;
-			for(ToggleButton button : toolsMap.keySet()){
-				if(button.isSelected()){
-					newFigure = toolsMap.get(button).activate(startPoint, endPoint);
-				}
+			if(rectangleButton.isSelected()) {
+				newFigure = new Rectangle(startPoint, endPoint);
+			}
+			else if(circleButton.isSelected()) {
+				double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
+				newFigure = new Circle(startPoint, circleRadius);
+			} else if(squareButton.isSelected()) {
+				double size = Math.abs(endPoint.getX() - startPoint.getX());
+				newFigure = new Square(startPoint, size);
+			} else if(ellipseButton.isSelected()) {
+				Point centerPoint = new Point(Math.abs(endPoint.x + startPoint.x) / 2, (Math.abs((endPoint.y + startPoint.y)) / 2));
+				double sMayorAxis = Math.abs(endPoint.x - startPoint.x);
+				double sMinorAxis = Math.abs(endPoint.y - startPoint.y);
+				newFigure = new Ellipse(centerPoint, sMayorAxis, sMinorAxis);
+			} else {
+				return ;
 			}
 			figureColorMap.put(newFigure, fillColorPicker.getValue());
 			canvasState.addFigure(newFigure);
