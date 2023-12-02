@@ -1,5 +1,5 @@
 package TP_POO.backend.model;
 
-public interface Figure {
+public abstract class Figure {
 
 }
