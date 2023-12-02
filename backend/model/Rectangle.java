@@ -10,11 +10,11 @@ public class Rectangle<P extends Point> extends Figure {
     }
 
     //tengo una duda si aca devolvemos P o Point
-    public Point getTopLeft() {
+    public P getTopLeft() {
         return topLeft;
     }
 
-    public Point getBottomRight() {
+    public P getBottomRight() {
         return bottomRight;
     }
 
