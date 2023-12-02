@@ -148,25 +148,17 @@ public class PaintPane extends BorderPane {
 				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
 				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
 				if(selectedFigure instanceof Rectangle) {
-					Rectangle rectangle = (Rectangle) selectedFigure;
-					rectangle.getTopLeft().x += diffX;
-					rectangle.getBottomRight().x += diffX;
-					rectangle.getTopLeft().y += diffY;
-					rectangle.getBottomRight().y += diffY;
+					MovableRectangle rectangle = (MovableRectangle) selectedFigure;
+					rectangle.move(diffX, diffY);
 				} else if(selectedFigure instanceof Circle) {
-					Circle circle = (Circle) selectedFigure;
-					circle.getCenterPoint().x += diffX;
-					circle.getCenterPoint().y += diffY;
+					MovableCircle circle = (MovableCircle) selectedFigure;
+					circle.move(diffX, diffY);
 				} else if(selectedFigure instanceof Square) {
-					Square square = (Square) selectedFigure;
-					square.getTopLeft().x += diffX;
-					square.getBottomRight().x += diffX;
-					square.getTopLeft().y += diffY;
-					square.getBottomRight().y += diffY;
+					MovableSquare square = (MovableSquare) selectedFigure;
+					square.move(diffX, diffY);
 				} else if(selectedFigure instanceof Ellipse) {
-					Ellipse ellipse = (Ellipse) selectedFigure;
-					ellipse.getCenterPoint().x += diffX;
-					ellipse.getCenterPoint().y += diffY;
+					MovableEllipse ellipse = (MovableEllipse) selectedFigure;
+					ellipse.move(diffX, diffY);
 				}
 				redrawCanvas();
 			}

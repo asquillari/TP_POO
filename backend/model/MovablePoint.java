@@ -5,23 +5,10 @@ public class MovablePoint extends Point implements Movable {
         super(x, y);
     }
     @Override
-    public void moveNorth(double delta){
-        y+=delta;
+    public void move(double deltax, double deltay){
+        x += deltax;
+        y += deltay;
     }
 
-    @Override
-    public void moveSouth(double delta){
-        y-=delta;
-    }
-
-    @Override
-    public void moveWest(double delta){
-        x-=delta;
-    }
-
-    @Override
-    public void moveEast(double delta){
-        x+=delta;
-    }
 
 }
