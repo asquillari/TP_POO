@@ -35,6 +35,9 @@ public class PaintPane extends BorderPane {
 	ToggleButton ellipseButton = new ToggleButton("Elipse");
 	ToggleButton deleteButton = new ToggleButton("Borrar");
 
+	//agregamos todas al mapa con sus respectivas acciones
+
+
 	// Selector de color de relleno
 	ColorPicker fillColorPicker = new ColorPicker(defaultFillColor);
 
@@ -53,15 +56,23 @@ public class PaintPane extends BorderPane {
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
-		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton};
+
+		Map<ToggleButton, Tool> toolsMap = new HashMap<>();
+		toolsMap.put(selectionButton, SelectionTool);
+		toolsMap.put(rectangleButton, RectangleTool);
+		toolsMap.put(circleButton, CircleTool);
+		toolsMap.put(squareButton, SquareTool);
+		toolsMap.put(ellipseButton, EllipseTool);
+		toolsMap.put(deleteButton, DeleteTool);
+
 		ToggleGroup tools = new ToggleGroup();
-		for (ToggleButton tool : toolsArr) {
+		for (ToggleButton tool : toolsMap.keySet()) {
 			tool.setMinWidth(90);
 			tool.setToggleGroup(tools);
 			tool.setCursor(Cursor.HAND);
 		}
 		VBox buttonsBox = new VBox(10);
-		buttonsBox.getChildren().addAll(toolsArr);
+		buttonsBox.getChildren().addAll(toolsMap.keySet());
 		buttonsBox.getChildren().add(fillColorPicker);
 		buttonsBox.setPadding(new Insets(5));
 		buttonsBox.setStyle("-fx-background-color: #999");
