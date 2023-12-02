@@ -1,9 +1,10 @@
 package TP_POO.backend.model;
 
-public class Square extends Rectangle {
+public class Square<P extends Point> extends Rectangle<P> {
 
-    public Square(Point topLeft, double size) {
-        super(topLeft, new Point(topLeft.x + size, topLeft.y + size));
+    public Square(P topLeft, double size) {
+        Point aux = new Point(topLeft.x + size, topLeft.y + size);
+        super(topLeft, aux);
     }
 
 

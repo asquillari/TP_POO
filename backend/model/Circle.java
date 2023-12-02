@@ -1,8 +1,8 @@
 package TP_POO.backend.model;
 
-public class Circle extends Ellipse {
+public class Circle<P extends Point> extends Ellipse<P> {
 
-    public Circle(Point centerPoint, double radius) {
+    public Circle(P centerPoint, double radius) {
         super(centerPoint, 2*radius, 2*radius);
     }
 

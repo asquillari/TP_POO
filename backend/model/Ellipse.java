@@ -1,11 +1,11 @@
 package TP_POO.backend.model;
 
-public class Ellipse extends Figure {
+public class Ellipse<P extends Point> extends Figure {
 
-    protected final Point centerPoint;
+    protected final P centerPoint;
     protected final double sMayorAxis, sMinorAxis;
 
-    public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis) {
+    public Ellipse(P centerPoint, double sMayorAxis, double sMinorAxis) {
         this.centerPoint = centerPoint;
         this.sMayorAxis = sMayorAxis;
         this.sMinorAxis = sMinorAxis;
