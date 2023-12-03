@@ -1,4 +1,4 @@
-package TP_POO.backend.model;
+package TP_POO.backend.interfaces;
 
 
 @FunctionalInterface

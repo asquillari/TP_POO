@@ -1,6 +1,8 @@
 package TP_POO.backend.model;
 
-public class Point implements Movable{
+import TP_POO.backend.interfaces.Movable;
+
+public class Point implements Movable {
 
     protected double x, y;
 
