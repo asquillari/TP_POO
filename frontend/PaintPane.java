@@ -2,6 +2,7 @@ package TP_POO.frontend;
 
 import TP_POO.backend.CanvasState;
 import TP_POO.backend.model.*;
+import TP_POO.frontend.buttons.FigureButton;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
@@ -26,18 +27,8 @@ public class PaintPane extends BorderPane {
 	Canvas canvas = new Canvas(800, 600);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
 	Color lineColor = Color.BLACK;
-	Color defaultFillColor = Color.YELLOW;
 
-	// Botones Barra Izquierda
-	ToggleButton selectionButton = new ToggleButton("Seleccionar");
-	ToggleButton rectangleButton = new ToggleButton("Rectángulo");
-	ToggleButton circleButton = new ToggleButton("Círculo");
-	ToggleButton squareButton = new ToggleButton("Cuadrado");
-	ToggleButton ellipseButton = new ToggleButton("Elipse");
-	ToggleButton deleteButton = new ToggleButton("Borrar");
-
-	// Selector de color de relleno
-	ColorPicker fillColorPicker = new ColorPicker(defaultFillColor);
+	private final Tools tools = new Tools();
 
 	// Dibujar una figura
 	Point startPoint;
@@ -51,32 +42,11 @@ public class PaintPane extends BorderPane {
 	// Colores de relleno de cada figura
 	Map<Figure, Color> figureColorMap = new HashMap<>();
 
-
-
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
-		ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton};
-		ToggleGroup tools = new ToggleGroup();
-		for (ToggleButton tool : toolsArr) {
-			tool.setMinWidth(90);
-			tool.setToggleGroup(tools);
-			tool.setCursor(Cursor.HAND);
-		}
-		VBox buttonsBox = new VBox(10);
-		buttonsBox.getChildren().addAll(toolsArr);
-		buttonsBox.getChildren().add(fillColorPicker);
-		buttonsBox.setPadding(new Insets(5));
-		buttonsBox.setStyle("-fx-background-color: #999");
-		buttonsBox.setPrefWidth(100);
+
 		gc.setLineWidth(1);
-
-		Map<ToggleButton, FigureTool> figureToolMap = new HashMap<>();
-
-		figureToolMap.put(rectangleButton, new FigureTool(Rectangle.class));
-		figureToolMap.put(circleButton, new FigureTool(Circle.class));
-		figureToolMap.put(ellipseButton, new FigureTool(Ellipse.class));
-		figureToolMap.put(squareButton, new FigureTool(Square.class));
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
@@ -90,14 +60,9 @@ public class PaintPane extends BorderPane {
 			if(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
 				return ;
 			}
-			Figure newFigure = null;
-			for(ToggleButton button : figureToolMap.keySet()){
-				if(button.isSelected()){
-					newFigure = figureToolMap.get(button).createFigure(startPoint, endPoint);
-					break;
-				}
-			}
-			figureColorMap.put(newFigure, fillColorPicker.getValue());
+			Figure newFigure = createFigure(startPoint, endPoint);
+
+			figureColorMap.put(newFigure, tools.getFillColor());
 			canvasState.addFigure(newFigure);
 			startPoint = null;
 			redrawCanvas();
@@ -121,7 +86,7 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseClicked(event -> {
-			if(selectionButton.isSelected()) {
+			if(tools.isSelectionButtonSelected()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
@@ -143,7 +108,7 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseDragged(event -> {
-			if(selectionButton.isSelected()) {
+			if(tools.isSelectionButtonSelected()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
 				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
@@ -164,7 +129,7 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
-		deleteButton.setOnAction(event -> {
+		tools.deleteAction(event -> {
 			if (selectedFigure != null) {
 				canvasState.deleteFigure(selectedFigure);
 				selectedFigure = null;
@@ -172,8 +137,17 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
-		setLeft(buttonsBox);
+		setLeft(tools);
 		setRight(canvas);
+	}
+
+	private Figure createFigure(Point startPoint, Point endPoint) {
+		for (FigureButton figureButton : tools.getFigureButtons()) {
+			if (figureButton.isSelected()) {
+				return figureButton.create(startPoint, endPoint);
+			}
+		}
+		return null;
 	}
 
 	void redrawCanvas() {

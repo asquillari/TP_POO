@@ -4,7 +4,7 @@ import TP_POO.backend.interfaces.Movable;
 
 public class Point implements Movable {
 
-    protected double x, y;
+    public double x, y;
 
     public Point(double x, double y) {
         this.x = x;

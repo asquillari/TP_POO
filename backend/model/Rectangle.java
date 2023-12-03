@@ -23,10 +23,6 @@ public class Rectangle extends Figure {
         return String.format("Rectángulo [ %s , %s ]", topLeft, bottomRight);
     }
 
-    public static Figure create(Point startPoint, Point endPoint){
-        return new Rectangle(startPoint, endPoint);
-    }
-
     @Override
     public void move(double deltax, double deltay) {
         topLeft.move(deltax, deltay);
