@@ -1,6 +1,6 @@
 package TP_POO.backend.model;
 
-public class Point {
+public class Point implements Movable{
 
     protected double x, y;
 
@@ -22,4 +22,9 @@ public class Point {
         return String.format("{%.2f , %.2f}", x, y);
     }
 
+    @Override
+    public void move(double deltax, double deltay) {
+        this.x += deltax;
+        this.y += deltay;
+    }
 }

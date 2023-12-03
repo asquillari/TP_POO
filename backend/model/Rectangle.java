@@ -1,20 +1,20 @@
 package TP_POO.backend.model;
 
-public class Rectangle<P extends Point> extends Figure {
+public class Rectangle extends Figure {
 
-    protected final P topLeft, bottomRight;
+    protected final Point topLeft, bottomRight;
 
-    public Rectangle(P topLeft, P bottomRight) {
+    public Rectangle(Point topLeft, Point bottomRight) {
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }
 
     //tengo una duda si aca devolvemos P o Point
-    public P getTopLeft() {
+    public Point getTopLeft() {
         return topLeft;
     }
 
-    public P getBottomRight() {
+    public Point getBottomRight() {
         return bottomRight;
     }
 
@@ -24,6 +24,12 @@ public class Rectangle<P extends Point> extends Figure {
     }
 
     public static Figure create(Point startPoint, Point endPoint){
-        return new Rectangle<>(startPoint, endPoint);
+        return new Rectangle(startPoint, endPoint);
+    }
+
+    @Override
+    public void move(double deltax, double deltay) {
+        topLeft.move(deltax, deltay);
+        bottomRight.move(deltax, deltay);
     }
 }

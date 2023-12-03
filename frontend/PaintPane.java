@@ -148,16 +148,16 @@ public class PaintPane extends BorderPane {
 				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
 				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
 				if(selectedFigure instanceof Rectangle) {
-					MovableRectangle rectangle = (MovableRectangle) selectedFigure;
+					Rectangle rectangle = (Rectangle) selectedFigure;
 					rectangle.move(diffX, diffY);
 				} else if(selectedFigure instanceof Circle) {
-					MovableCircle circle = (MovableCircle) selectedFigure;
+					Circle circle = (Circle) selectedFigure;
 					circle.move(diffX, diffY);
 				} else if(selectedFigure instanceof Square) {
-					MovableSquare square = (MovableSquare) selectedFigure;
+					Square square = (Square) selectedFigure;
 					square.move(diffX, diffY);
 				} else if(selectedFigure instanceof Ellipse) {
-					MovableEllipse ellipse = (MovableEllipse) selectedFigure;
+					Ellipse ellipse = (Ellipse) selectedFigure;
 					ellipse.move(diffX, diffY);
 				}
 				redrawCanvas();

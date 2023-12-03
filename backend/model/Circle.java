@@ -1,8 +1,8 @@
 package TP_POO.backend.model;
 
-public class Circle<P extends Point> extends Ellipse<P> {
+public class Circle extends Ellipse{
 
-    public Circle(P centerPoint, double radius) {
+    public Circle(Point centerPoint, double radius) {
         super(centerPoint, 2*radius, 2*radius);
     }
 
@@ -21,7 +21,7 @@ public class Circle<P extends Point> extends Ellipse<P> {
 
     public static Figure create(Point startPoint, Point endPoint){
         double circleRadius = Math.abs(endPoint.getX() - startPoint.getX());
-        return new Circle<>(startPoint, circleRadius);
+        return new Circle(startPoint, circleRadius);
     }
 
 }

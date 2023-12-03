@@ -1,5 +1,5 @@
 package TP_POO.backend.model;
 
-public abstract class Figure {
+public abstract class Figure implements Movable{
 
 }

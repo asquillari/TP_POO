@@ -1,11 +1,11 @@
 package TP_POO.backend.model;
 
-public class Ellipse<P extends Point> extends Figure {
+public class Ellipse extends Figure {
 
-    protected final P centerPoint;
+    protected final Point centerPoint;
     protected final double sMayorAxis, sMinorAxis;
 
-    public Ellipse(P centerPoint, double sMayorAxis, double sMinorAxis) {
+    public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis) {
         this.centerPoint = centerPoint;
         this.sMayorAxis = sMayorAxis;
         this.sMinorAxis = sMinorAxis;
@@ -32,6 +32,11 @@ public class Ellipse<P extends Point> extends Figure {
         Point centerPoint = new Point(Math.abs(endPoint.x + startPoint.x) / 2, (Math.abs((endPoint.y + startPoint.y)) / 2));
         double sMayorAxis = Math.abs(endPoint.x - startPoint.x);
         double sMinorAxis = Math.abs(endPoint.y - startPoint.y);
-        return new Ellipse<>(centerPoint, sMayorAxis, sMinorAxis);
+        return new Ellipse(centerPoint, sMayorAxis, sMinorAxis);
+    }
+
+    @Override
+    public void move(double deltax, double deltay) {
+        centerPoint.move(deltax, deltay);
     }
 }
