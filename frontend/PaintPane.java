@@ -164,7 +164,10 @@ public class PaintPane extends BorderPane {
 	}
 
 	boolean figureBelongs(Figure figure, Point eventPoint) {
-		return figure.contains(eventPoint);
+		if(figure != null){
+			return figure.contains(eventPoint);
+		}
+		return false;
 	}
 
 }
