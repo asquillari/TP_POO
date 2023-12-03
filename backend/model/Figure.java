@@ -6,4 +6,5 @@ import TP_POO.backend.interfaces.Selectable;
 
 public abstract class Figure implements Movable, Drawable, Selectable {
 
+
 }
