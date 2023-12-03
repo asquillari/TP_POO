@@ -20,13 +20,18 @@ import java.util.function.Supplier;
 
 public class PaintPane extends BorderPane {
 
+	private static final int CANVAS_WIDTH = 800;
+	private static final int CANVAS_HEIGHT = 600;
+	private static final Color LINE_COLOR = Color.BLACK;
+	private static final int LINE_WIDTH = 1;
+
 	// BackEnd
 	CanvasState canvasState;
 
 	// Canvas y relacionados
-	Canvas canvas = new Canvas(800, 600);
+	Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 	GraphicsContext gc = canvas.getGraphicsContext2D();
-	Color lineColor = Color.BLACK;
+	Color lineColor = LINE_COLOR;
 
 	private final Tools tools = new Tools();
 
@@ -46,7 +51,7 @@ public class PaintPane extends BorderPane {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 
-		gc.setLineWidth(1);
+		gc.setLineWidth(LINE_WIDTH);
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
