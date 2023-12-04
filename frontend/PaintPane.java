@@ -4,20 +4,13 @@ import TP_POO.backend.CanvasState;
 import TP_POO.backend.model.*;
 import TP_POO.frontend.buttons.FigureButton;
 import TP_POO.frontend.model.DrawableRectangle;
-import javafx.geometry.Insets;
-import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class PaintPane extends BorderPane {
 
@@ -41,6 +34,7 @@ public class PaintPane extends BorderPane {
 
 	// Seleccionar una figura
 	Figure selectedFigure;
+	Figure selector;
 
 	// StatusBar
 	StatusPane statusPane;
@@ -60,15 +54,21 @@ public class PaintPane extends BorderPane {
 
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
-			if(startPoint == null) {
+			if(startPoint == null || endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
 				return ;
 			}
-			if(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
-				return ;
+
+			if(!tools.isSelectionButtonSelected()) {
+				Figure newFigure = createFigure(startPoint, endPoint);
+				figureColorMap.put(newFigure, tools.getFillColor());
+				canvasState.addFigure(newFigure);
+
+			}if(tools.isSelectionButtonSelected()){
+				selector = new DrawableRectangle(startPoint, endPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.TRANSPARENT));
+				if(!canvasState.selectFigures(selector)){
+					canvasState.resetSelectedFigures();
+				}
 			}
-			Figure newFigure = createFigure(startPoint, endPoint);
-			figureColorMap.put(newFigure, tools.getFillColor());
-			canvasState.addFigure(newFigure);
 			startPoint = null;
 			redrawCanvas();
 		});
@@ -91,7 +91,7 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseClicked(event -> {
-			if(tools.isSelectionButtonSelected()) {
+			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
@@ -125,6 +125,10 @@ public class PaintPane extends BorderPane {
 				canvasState.moveSelectedFigures(diffX, diffY);
 				redrawCanvas();
 			}
+
+			if (tools.isSelectionButtonSelected()) {
+				selector = new DrawableRectangle(startPoint, eventPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.TRANSPARENT));
+			}
 		});
 
 		tools.deleteAction(event -> {
@@ -137,6 +141,9 @@ public class PaintPane extends BorderPane {
 
 		setLeft(tools);
 		setRight(canvas);
+
+		// Decidimos que al apretar los botones de figuras se deseleccionen todas las figuras
+		tools.figureButtonAction(event -> {canvasState.resetSelectedFigures(); redrawCanvas();});
 	}
 
 	private Figure createFigure(Point startPoint, Point endPoint) {
@@ -180,4 +187,6 @@ public class PaintPane extends BorderPane {
 	private BackColor toBackendColor(Color fxColor) {
 		return new BackColor(fxColor.getRed(), fxColor.getGreen(), fxColor.getBlue(), fxColor.getOpacity());
 	}
+
+
 }
