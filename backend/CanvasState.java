@@ -26,13 +26,20 @@ public class CanvasState {
     }
 
     //devuelvo copia de las figuras que estan seleccionadas
-    public List<Figure> SelectedFigures(){ return new ArrayList<>(selectedFigures);}
     public boolean SelectedFiguresIsEmpty(){
         return selectedFigures.isEmpty();
     }
 
     public Iterable<Figure> figures() {
         return new ArrayList<>(figures);
+    }
+
+    public List<Figure> selectedFigures() {
+        return new ArrayList<>(selectedFigures);
+    }
+
+    public void resetSelectedFigures() {
+        selectedFigures = new ArrayList<>();
     }
 
     public void moveSelectedFigures(double diffX, double diffY) {
