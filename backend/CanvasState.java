@@ -34,14 +34,16 @@ public class CanvasState {
             private int index=figures.size()-1;
             @Override
             public boolean hasNext() {
-                return index>=0;
+                return index >= 0;
             }
 
             @Override
             public Figure next() {
                 if(!hasNext())
                     throw new NoSuchElementException();
-                return figures.get(index--);
+                Figure toReturn= figures.get(index);
+                index--;
+                return toReturn;
             }
         };
     }

@@ -51,7 +51,7 @@ public class PaintPane extends BorderPane {
 
 	// Seleccionar una figura
 	Figure selectedFigure;
-	Figure currentFigure;
+
 
 
 	// Colores de relleno de cada figura
@@ -85,17 +85,52 @@ public class PaintPane extends BorderPane {
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
 
+
 			//si no hay punto de inicio no se hace nada
 			//tampoco si se suelta el mouse en el mismo lugar que se apreto para evitar confundir con el click
 			if(startPoint == null || event.isStillSincePress()) {
+				resetStartPoint();
 				return ;
 			}
 
+			resetStartPoint();
+			//deselecciono figuras luego de moverlas
+			if(!canvasState.SelectedFiguresIsEmpty()){
+				canvasState.resetSelectedFigures();
+				statusPane.updateStatus(UNSELECTED_STRING);
+				redrawCanvas();
+				return;
+			}
+
+			if(selectedFigure==null)
+				return;
+
+			//si esta seleccionado el boton de selección y no hay figuras seleccionadas
+			//seleccionamos las figuras que se encuentren dentro de selectedFigure que es nuestra figura de seleccion
+			if(tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()){
+				if(!canvasState.selectFigures(selectedFigure))
+					canvasState.resetSelectedFigures();
+
+				updateSelectedFiguresLabel(false);
+				redrawCanvas();
+				selectedFigure=null;
+				return;
+			}
+
+			if(!tools.isSelectionButtonSelected()){
+				figureColorMap.put(selectedFigure, tools.getFillColor());
+				canvasState.addFigure(selectedFigure);
+				statusPane.updateStatus(CREATING_FIGURE_STRING + selectedFigure.toString());
+				selectedFigure=null;
+			}
+
+/*
 			Figure newFigure = createFigure(startPoint, endPoint);
-			figureColorMap.put(newFigure, tools.getFillColor());
+
 			canvasState.addFigure(newFigure);
 			startPoint = null;
 			redrawCanvas();
+*/
 		});
 
 		canvas.setOnMouseMoved(event -> {
@@ -129,6 +164,9 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseDragged(event -> {
+			if(startPoint==null)
+				return;
+
 			Point eventPoint = new Point(event.getX(), event.getY());
 
 			//chequeo que haya figuras seleccionadas y que se este seleccionando el boton de seleccion
@@ -139,6 +177,8 @@ public class PaintPane extends BorderPane {
 
 				canvasState.moveSelectedFigures(diffX, diffY);
 				redrawCanvas();
+				return;
+			}
 
 				//mientras estemos haciendo drag, si el cursor esta en canvas se actualiza el mensaje de estado
 				if(onCanvas(eventPoint)){
@@ -146,17 +186,17 @@ public class PaintPane extends BorderPane {
 				}
 
 				if(tools.isSelectionButtonSelected()){
-					currentFigure=new DrawableRectangle(startPoint, eventPoint, gc);
+					selectedFigure=new DrawableRectangle(startPoint, eventPoint, gc);
 				}else{
-					currentFigure=createFigure(startPoint, eventPoint);
+					selectedFigure=createFigure(startPoint, eventPoint);
 				}
 
-				if(currentFigure != null){
+				if(selectedFigure != null){
 					redrawCanvas();
-					drawFigure(currentFigure);
-					statusPane.updateStatus(tools.isSelectionButtonSelected()? SELECTING_STRING : CREATING_FIGURE_STRING + currentFigure.toString());
+					drawFigure(selectedFigure);
+					statusPane.updateStatus(tools.isSelectionButtonSelected()? SELECTING_STRING : CREATING_FIGURE_STRING + selectedFigure.toString());
 				}
-			}
+
 		});
 
 	}
@@ -193,13 +233,6 @@ public class PaintPane extends BorderPane {
 	}
 
 
-	private boolean figureBelongs(Figure figure, Point eventPoint) {
-		if(figure != null){
-			return figure.contains(eventPoint);
-		}
-		return false;
-	}
-
 	private void updateSelectedFiguresLabel(boolean found){
 		//si no hay figuras en el array de seleccionadas significa
 		//que fueron deseleccionadas o que no fueron encontradas
@@ -216,6 +249,10 @@ public class PaintPane extends BorderPane {
 
 	private boolean onCanvas(Point eventPoint){
 		return eventPoint.getX()>=0 && eventPoint.getY()>=0 && eventPoint.getX()<=CANVAS_WIDTH && eventPoint.getY()<=CANVAS_HEIGHT;
+	}
+
+	private void resetStartPoint(){
+		startPoint=null;
 	}
 
 }
