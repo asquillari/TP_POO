@@ -1,5 +1,6 @@
 package TP_POO.frontend.model;
 
+import TP_POO.backend.model.BackColor;
 import TP_POO.backend.model.Circle;
 import TP_POO.backend.model.Point;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,8 +9,8 @@ public class DrawableCircle extends Circle {
 
     private final GraphicsContext gc;
 
-    public DrawableCircle(Point centerPoint, double radius, GraphicsContext gc) {
-        super(centerPoint, radius);
+    public DrawableCircle(Point centerPoint, double radius, GraphicsContext gc, BackColor fillColor, BackColor lineColor) {
+        super(centerPoint, radius, fillColor, lineColor);
         this.gc = gc;
     }
 

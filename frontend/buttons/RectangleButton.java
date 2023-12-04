@@ -1,5 +1,6 @@
 package TP_POO.frontend.buttons;
 
+import TP_POO.backend.model.BackColor;
 import TP_POO.backend.model.Figure;
 import TP_POO.backend.model.Point;
 import TP_POO.backend.model.Rectangle;
@@ -13,7 +14,7 @@ public class RectangleButton extends FigureButton {
     }
 
     @Override
-    public Figure create(Point startPoint, Point endPoint, GraphicsContext gc) {
-        return new DrawableRectangle(startPoint, endPoint, gc);
+    public Figure create(Point startPoint, Point endPoint, GraphicsContext gc, BackColor fillColor, BackColor lineColor) {
+        return new DrawableRectangle(startPoint, endPoint, gc, fillColor, lineColor);
     }
 }

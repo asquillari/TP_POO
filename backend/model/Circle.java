@@ -2,8 +2,8 @@ package TP_POO.backend.model;
 
 public abstract class Circle extends Ellipse{
 
-    public Circle(Point centerPoint, double radius) {
-        super(centerPoint, 2*radius, 2*radius);
+    public Circle(Point centerPoint, double radius, BackColor fillColor, BackColor lineColor) {
+        super(centerPoint, 2*radius, 2*radius, fillColor, lineColor);
     }
 
     @Override

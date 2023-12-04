@@ -1,5 +1,6 @@
 package TP_POO.frontend.model;
 
+import TP_POO.backend.model.BackColor;
 import TP_POO.backend.model.Point;
 import TP_POO.backend.model.Square;
 import javafx.scene.canvas.GraphicsContext;
@@ -7,8 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 public class DrawableSquare extends Square {
 
     private final GraphicsContext gc;
-    public DrawableSquare(Point topLeft, double size, GraphicsContext gc){
-        super(topLeft, size);
+    public DrawableSquare(Point topLeft, double size, GraphicsContext gc, BackColor fillColor, BackColor lineColor){
+        super(topLeft, size, fillColor, lineColor);
         this.gc = gc;
     }
 
