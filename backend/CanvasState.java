@@ -34,8 +34,15 @@ public class CanvasState {
         return new ArrayList<>(figures);
     }
 
-    public List<Figure> selectedFigures() {
-        return new ArrayList<>(selectedFigures);
+    public boolean selectFigures(Figure selectionFigure) {
+        boolean found = false;
+        for (Figure figure : figures) {
+            if(figure.isContained(selectionFigure)) {
+                found = true;
+                selectedFigures.add(figure);
+            }
+        }
+        return found;
     }
 
     public void resetSelectedFigures() {
