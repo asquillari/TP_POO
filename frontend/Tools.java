@@ -74,4 +74,8 @@ public class Tools extends VBox {
         return selectionButton.isSelected();
     }
 
+    public void changeToSelect() {
+        selectionButton.setSelected(true);
+        selectionButton.requestFocus();
+    }
 }

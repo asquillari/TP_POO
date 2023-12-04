@@ -9,8 +9,6 @@ import java.util.NoSuchElementException;
 
 
 public class CanvasState {
-    //ordenadas por cual aparece al frente:
-    //con la primera figura siendo la del fondo y la ultima la que se encuentra más al frente
 
     private final List<Figure> figures = new ArrayList<>();
     private List<Figure> selectedFigures= new ArrayList<>();
@@ -33,7 +31,7 @@ public class CanvasState {
     public Iterable<Figure> figures() {
         return new ArrayList<>(figures);
     }
-    public Iterable<Figure> selectedFigures() {
+    public List<Figure> selectedFigures() {
         return new ArrayList<>(selectedFigures);
     }
 
@@ -60,6 +58,11 @@ public class CanvasState {
     public void addSelectedFigure(Figure selectedFigure) {
         selectedFigures.clear();
         selectedFigures.add(selectedFigure);
+    }
+
+    public void deleteSelected() {
+        figures.removeAll(selectedFigures);
+        resetSelectedFigures();
     }
 }
 

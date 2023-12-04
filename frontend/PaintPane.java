@@ -32,8 +32,6 @@ public class PaintPane extends BorderPane {
 	// Dibujar una figura
 	Point startPoint;
 
-	// Seleccionar una figura
-	Figure selectedFigure;
 	Figure selector;
 
 	// StatusBar
@@ -58,9 +56,11 @@ public class PaintPane extends BorderPane {
 				return ;
 			}
 
+
 			if(!tools.isSelectionButtonSelected()) {
 				Figure newFigure = createFigure(startPoint, endPoint);
-				figureColorMap.put(newFigure, tools.getFillColor());
+				newFigure.setFigureProperties(toBackendColor(tools.getFillColor()), toBackendColor(Color.BLACK));
+				//figureColorMap.put(newFigure, tools.getFillColor());
 				canvasState.addFigure(newFigure);
 
 			}if(tools.isSelectionButtonSelected()){
@@ -91,6 +91,9 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseClicked(event -> {
+			if(!(tools.isSelectionButtonSelected()))
+				return;
+
 			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
@@ -98,15 +101,13 @@ public class PaintPane extends BorderPane {
 				for (Figure figure : canvasState.figures()) {
 					if(figureBelongs(figure, eventPoint)) {
 						found = true;
-						selectedFigure = figure;
-						canvasState.addSelectedFigure(selectedFigure);
+						canvasState.addSelectedFigure(figure);
 						label.append(figure.toString());
 					}
 				}
 				if (found) {
 					statusPane.updateStatus(label.toString());
 				} else {
-					selectedFigure = null;
 					statusPane.updateStatus("Ninguna figura encontrada");
 				}
 				redrawCanvas();
@@ -132,11 +133,11 @@ public class PaintPane extends BorderPane {
 		});
 
 		tools.deleteAction(event -> {
-			if (selectedFigure != null) {
-				canvasState.deleteFigure(selectedFigure);
-				selectedFigure = null;
+			if(isSelectedActionPossible()){
+				canvasState.deleteSelected();
 				redrawCanvas();
 			}
+			tools.changeToSelect();
 		});
 
 		setLeft(tools);
@@ -167,13 +168,8 @@ public class PaintPane extends BorderPane {
 
 	private void drawFigure(Figure figure) {
 		gc.setStroke(Color.RED);
-		//esto no es muy de objetos pero por ahora lo dejo
-		if(figure == selectedFigure) {
-			gc.setStroke(Color.RED);
-		} else {
-			gc.setStroke(lineColor);
-		}
-		gc.setFill(figureColorMap.get(figure));
+		gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : toFxColor(figure.getLineColor()));
+		gc.setFill(toFxColor(figure.getFillColor()));
 		figure.draw();
 	}
 
@@ -184,9 +180,16 @@ public class PaintPane extends BorderPane {
 		return false;
 	}
 
+	private Color toFxColor(BackColor backendColor) {
+		return new Color(backendColor.getRed(), backendColor.getGreen(), backendColor.getBlue(), backendColor.getTransparency());
+	}
 	private BackColor toBackendColor(Color fxColor) {
 		return new BackColor(fxColor.getRed(), fxColor.getGreen(), fxColor.getBlue(), fxColor.getOpacity());
 	}
+
+	private boolean isSelectedActionPossible() {
+        return !canvasState.SelectedFiguresIsEmpty();
+    }
 
 
 }
