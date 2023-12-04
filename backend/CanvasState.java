@@ -33,6 +33,9 @@ public class CanvasState {
     public Iterable<Figure> figures() {
         return new ArrayList<>(figures);
     }
+    public Iterable<Figure> selectedFigures() {
+        return new ArrayList<>(selectedFigures);
+    }
 
     public boolean selectFigures(Figure selectionFigure) {
         boolean found = false;
