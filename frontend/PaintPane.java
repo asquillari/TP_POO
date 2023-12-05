@@ -56,7 +56,6 @@ public class PaintPane extends BorderPane {
 				return ;
 			}
 
-
 			if(!tools.isSelectionButtonSelected()) {
 				Figure newFigure = createFigure(startPoint, endPoint);
 				if(newFigure != null) {
@@ -94,9 +93,7 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseClicked(event -> {
-			if(!(tools.isSelectionButtonSelected()))
-				return;
-
+			
 			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
