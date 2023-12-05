@@ -73,7 +73,7 @@ public class PaintPane extends BorderPane {
 					canvasState.resetSelectedFigures();
 
 				redrawCanvas();
-				selector = null;
+				//selector = null;
 				return;
 			}
 
