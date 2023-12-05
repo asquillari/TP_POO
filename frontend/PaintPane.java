@@ -9,10 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PaintPane extends BorderPane {
 
@@ -165,7 +162,7 @@ public class PaintPane extends BorderPane {
 
 		tools.groupAction(event -> {
 			if(selector != null){
-				List<Figure> toAdd = new ArrayList<>();
+				Set<Figure> toAdd = new HashSet<>();
 				for(Figure figure : canvasState.selectedFigures()){
 					toAdd.add(figure);
 					canvasState.deleteFigure(figure);
@@ -173,6 +170,7 @@ public class PaintPane extends BorderPane {
 				canvasState.addFigure(toAdd);
 			}
 		});
+
 
 		setLeft(tools);
 		setRight(canvas);
