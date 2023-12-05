@@ -18,6 +18,8 @@ public class Tools extends VBox {
     private final static String CUADRADO = "Cuadrado";
     private final static String ELIPSE = "Elipse";
     private final static String BORRAR = "Borrar";
+    private final static  String AGRUPAR = "Agrupar";
+    private final static String DESAGRUPAR = "Desagrupar";
     private final static int MIN_WIDTH = 90;
     private final static int INSETS_PADDING = 5;
     private final static int PREF_WIDTH = 100;
@@ -30,6 +32,8 @@ public class Tools extends VBox {
     private final FigureButton squareButton = new SquareButton(CUADRADO);
     private final FigureButton ellipseButton = new EllipseButton(ELIPSE);
     private final ToggleButton deleteButton = new ToggleButton(BORRAR);
+    private final ToggleButton groupButton = new ToggleButton(AGRUPAR);
+    private final ToggleButton degroupButton = new ToggleButton(DESAGRUPAR);
 
     private final FigureButton[] figureButtonsArr = {rectangleButton, circleButton, squareButton, ellipseButton};
     private final static Color DEFAULT_FILL_COLOR = Color.YELLOW;
@@ -37,7 +41,7 @@ public class Tools extends VBox {
     private final static Cursor HAND = Cursor.HAND;
     public Tools(){
 
-        ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton};
+        ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton, groupButton, degroupButton};
         ToggleGroup tools = new ToggleGroup();
         for (ToggleButton tool : toolsArr) {
             tool.setMinWidth(MIN_WIDTH);
@@ -74,5 +78,5 @@ public class Tools extends VBox {
         return selectionButton.isSelected();
     }
 
-
+    public void groupAction(EventHandler<ActionEvent> action){ groupButton.setOnAction(action); }
 }

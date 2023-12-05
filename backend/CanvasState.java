@@ -10,17 +10,14 @@ import java.util.NoSuchElementException;
 
 public class CanvasState {
 
-    private final List<Figure> figures = new ArrayList<>();
-    private List<Figure> selectedFigures= new ArrayList<>();
+    private final List<List<Figure>> figures = new ArrayList<>();
+    private List<List<Figure>> selectedFigures= new ArrayList<>();
 
     //agrego figura
     public void addFigure(Figure figure) {
-        figures.add(figure);
-    }
-
-    //elimino figura
-    public void deleteFigure(Figure figure) {
-        figures.remove(figure);
+        List<Figure> newList = new ArrayList<>();
+        newList.add(figure);
+        figures.add(newList);
     }
 
     //devuelvo copia de las figuras que estan seleccionadas
@@ -29,21 +26,39 @@ public class CanvasState {
     }
 
     public Iterable<Figure> figures() {
-        return new ArrayList<>(figures);
+        return iterate(figures);
     }
     public List<Figure> selectedFigures() {
-        return new ArrayList<>(selectedFigures);
+        return iterate(selectedFigures);
+    }
+
+    private List<Figure> iterate(List<List<Figure>> list){
+        List<Figure> toReturn = new ArrayList<>();
+        for(List<Figure> figureArr : list){
+            toReturn.addAll(figureArr);
+        }
+        return toReturn;
     }
 
     public boolean selectFigures(Figure selectionFigure) {
         boolean found = false;
-        for (Figure figure : figures) {
-            if(figure.isContained(selectionFigure)) {
+        for (List<Figure> figuresArr : figures) {
+            if (isAllContained(figuresArr, selectionFigure)) {
                 found = true;
-                selectedFigures.add(figure);
+                List<Figure> toAdd = new ArrayList<>(figuresArr);
+                selectedFigures.add(toAdd);
             }
         }
         return found;
+    }
+
+    private boolean isAllContained(List<Figure> figuresArr, Figure selectionFigure) {
+        for (Figure figure : figuresArr){
+            if(!figure.isContained(selectionFigure)){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void resetSelectedFigures() {
@@ -51,13 +66,18 @@ public class CanvasState {
     }
 
     public void moveSelectedFigures(double diffX, double diffY) {
-        for(Figure selectedFigure : selectedFigures)
-            selectedFigure.move(diffX, diffY);
+        for(List<Figure> selectedFigures : selectedFigures) {
+            for(Figure selectedFigure : selectedFigures) {
+                selectedFigure.move(diffX, diffY);
+            }
+        }
     }
 
     public void addSelectedFigure(Figure selectedFigure) {
         selectedFigures.clear();
-        selectedFigures.add(selectedFigure);
+        List<Figure> toAdd = new ArrayList<>();
+        toAdd.add(selectedFigure);
+        selectedFigures.add(toAdd);
     }
 
     public void deleteSelected() {
@@ -65,11 +85,17 @@ public class CanvasState {
         resetSelectedFigures();
     }
     public boolean belongsToASelectedFigure(Point eventPoint) {
-        for(Figure selectedFigure : selectedFigures) {
-            if (selectedFigure.contains(eventPoint))
-                return true;
+        for(List<Figure> selectedFigures : selectedFigures) {
+            for (Figure selectedFigure : selectedFigures) {
+                if (selectedFigure.contains(eventPoint))
+                    return true;
+            }
         }
         return false;
+    }
+
+    public void deleteFiure(Figure figure){
+
     }
 }
 

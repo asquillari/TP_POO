@@ -9,7 +9,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PaintPane extends BorderPane {
@@ -157,6 +159,17 @@ public class PaintPane extends BorderPane {
 			if(isSelectedActionPossible()){
 				canvasState.deleteSelected();
 				redrawCanvas();
+			}
+		});
+
+		tools.groupAction(event -> {
+			if(selector != null){
+				List<Figure> toAdd = new ArrayList<>();
+				for(Figure figure : canvasState.selectedFigures()){
+					toAdd.add(figure);
+
+				}
+
 			}
 		});
 
