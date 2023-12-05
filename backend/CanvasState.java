@@ -82,7 +82,10 @@ public class CanvasState {
     public void addSelectedFigure(Figure selectedFigure) {
         selectedFigures.clear();
         List<Figure> toAdd = new ArrayList<>();
-        toAdd.add(selectedFigure);
+        for(List<Figure> list: figures){
+            if(list.contains(selectedFigure))
+                toAdd.addAll(list);
+        }
         selectedFigures.add(toAdd);
     }
 

@@ -54,6 +54,7 @@ public class PaintPane extends BorderPane {
 			if(startPoint == null ) {
 				return ;
 			}
+			//Si el cursor no termina en una de las figuras seleccionadas entonces deselecciona
 			if (!canvasState.SelectedFiguresIsEmpty()) {
 				if (!canvasState.belongsToASelectedFigure(endPoint)) {
 					canvasState.resetSelectedFigures();
@@ -61,6 +62,7 @@ public class PaintPane extends BorderPane {
 				redrawCanvas();
 				return;
 			}
+
 
 			if (selector == null)
 				return;
@@ -101,14 +103,18 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseClicked(event -> {
-			
+
 			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
+
+
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
+
 				for (Figure figure : canvasState.figures()) {
 					if(figureBelongs(figure, eventPoint)) {
 						found = true;
+
 						canvasState.addSelectedFigure(figure);
 						label.append(figure.toString());
 					}
