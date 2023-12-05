@@ -31,12 +31,12 @@ public class CanvasState {
     public Iterable<Figure> figures() {
         return iterate(figures);
     }
-    public List<Figure> selectedFigures() {
+    public Set<Figure> selectedFigures() {
         return iterate(selectedFigures);
     }
 
-    private List<Figure> iterate(List<Set<Figure>> list){
-        List<Figure> toReturn = new ArrayList<>();
+    private Set<Figure> iterate(List<Set<Figure>> list){
+        Set<Figure> toReturn = new HashSet<>();
         for(Set<Figure> figureArr : list){
             toReturn.addAll(figureArr);
         }
