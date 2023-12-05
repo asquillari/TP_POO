@@ -39,9 +39,6 @@ public class PaintPane extends BorderPane {
 	// StatusBar
 	StatusPane statusPane;
 
-	// Colores de relleno de cada figura
-	Map<Figure, Color> figureColorMap = new HashMap<>();
-
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
@@ -65,12 +62,10 @@ public class PaintPane extends BorderPane {
 				return;
 			}
 
-			// Antes de interactuar con la figura en creación 'currentFigure' chequeamos que esta no sea null
 			if (selector == null)
 				return;
 
-			// Una vez suelto el mouse, si está seleccionado el botón de selección y no hay figuras seleccionadas
-			// 'currentFigure' es la figura de selección, entonces seleccionamos las figuras que se encuentren dentro de esta
+			// Cuando se suelta el mouse si la figura dibujada no es el rectangulo del selector se almacena en el array
 			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
 				if (!canvasState.selectFigures(selector))
 					canvasState.resetSelectedFigures();
@@ -167,9 +162,9 @@ public class PaintPane extends BorderPane {
 				List<Figure> toAdd = new ArrayList<>();
 				for(Figure figure : canvasState.selectedFigures()){
 					toAdd.add(figure);
-
+					canvasState.deleteFigure(figure);
 				}
-
+				canvasState.addFigure(toAdd);
 			}
 		});
 
