@@ -59,9 +59,12 @@ public class PaintPane extends BorderPane {
 
 			if(!tools.isSelectionButtonSelected()) {
 				Figure newFigure = createFigure(startPoint, endPoint);
-				newFigure.setFigureProperties(toBackendColor(tools.getFillColor()), toBackendColor(Color.BLACK));
+				if(newFigure != null) {
+					newFigure.setFigureProperties(toBackendColor(tools.getFillColor()), toBackendColor(Color.BLACK));
+					canvasState.addFigure(newFigure);
+				}
 				//figureColorMap.put(newFigure, tools.getFillColor());
-				canvasState.addFigure(newFigure);
+
 
 			}if(tools.isSelectionButtonSelected()){
 				selector = new DrawableRectangle(startPoint, endPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.TRANSPARENT));
@@ -137,7 +140,6 @@ public class PaintPane extends BorderPane {
 				canvasState.deleteSelected();
 				redrawCanvas();
 			}
-			tools.changeToSelect();
 		});
 
 		setLeft(tools);
