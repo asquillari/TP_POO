@@ -13,12 +13,18 @@ public class CanvasState {
     private final List<List<Figure>> figures = new ArrayList<>();
     private List<List<Figure>> selectedFigures= new ArrayList<>();
 
-    //agrego figura
+    //agrego una lista con una sola figura a nuestra lista de figuras
     public void addFigure(Figure figure) {
         List<Figure> newList = new ArrayList<>();
         newList.add(figure);
         figures.add(newList);
     }
+
+    //agrego una lista de figuras a la lista figures para considerarlas un grupo
+    public void addFigure(List<Figure> list){
+        figures.add(list);
+    }
+
 
     //devuelvo copia de las figuras que estan seleccionadas
     public boolean SelectedFiguresIsEmpty(){
@@ -80,6 +86,7 @@ public class CanvasState {
         selectedFigures.add(toAdd);
     }
 
+
     public void deleteSelected() {
         figures.removeAll(selectedFigures);
         resetSelectedFigures();
@@ -94,8 +101,8 @@ public class CanvasState {
         return false;
     }
 
-    public void deleteFiure(Figure figure){
-
+    public void deleteFigure(Figure figure){
+        figures.removeIf(list -> list.contains(figure));
     }
 }
 
