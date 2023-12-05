@@ -52,27 +52,38 @@ public class PaintPane extends BorderPane {
 
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
-			if(startPoint == null || endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY()) {
+			if(startPoint == null ) {
 				return ;
 			}
-
-			if(!tools.isSelectionButtonSelected()) {
-				Figure newFigure = createFigure(startPoint, endPoint);
-				if(newFigure != null) {
-					newFigure.setFigureProperties(toBackendColor(tools.getFillColor()), toBackendColor(Color.BLACK));
-					canvasState.addFigure(newFigure);
-				}
-				//figureColorMap.put(newFigure, tools.getFillColor());
-
-
-			}if(tools.isSelectionButtonSelected()){
-				selector = new DrawableRectangle(startPoint, endPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.TRANSPARENT));
-				if(!canvasState.selectFigures(selector)){
+			if (!canvasState.SelectedFiguresIsEmpty()) {
+				if (!canvasState.belongsToASelectedFigure(endPoint)) {
 					canvasState.resetSelectedFigures();
 				}
+				redrawCanvas();
+				return;
 			}
-			startPoint = null;
-			redrawCanvas();
+
+			// Antes de interactuar con la figura en creación 'currentFigure' chequeamos que esta no sea null
+			if (selector == null)
+				return;
+
+			// Una vez suelto el mouse, si está seleccionado el botón de selección y no hay figuras seleccionadas
+			// 'currentFigure' es la figura de selección, entonces seleccionamos las figuras que se encuentren dentro de esta
+			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
+				if (!canvasState.selectFigures(selector))
+					canvasState.resetSelectedFigures();
+
+				redrawCanvas();
+				selector = null;
+				return;
+			}
+
+			// Una vez suelto el mouse, la figura que creo el usuario se agrega al canvasState
+			// Si el botón de selección está activo, 'currentFigure' es el rectángulo de selección, entonces no se agrega
+			if(!tools.isSelectionButtonSelected()) {
+				canvasState.addFigure(selector);
+				selector = null;
+			}
 		});
 
 		canvas.setOnMouseMoved(event -> {
@@ -126,9 +137,19 @@ public class PaintPane extends BorderPane {
 				canvasState.moveSelectedFigures(diffX, diffY);
 				redrawCanvas();
 			}
-
-			if (tools.isSelectionButtonSelected()) {
-				selector = new DrawableRectangle(startPoint, eventPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.TRANSPARENT));
+			if (!isEndPointValid(eventPoint)) {
+				redrawCanvas();
+				selector = null;
+				return;
+			}
+			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
+				selector = new DrawableRectangle(startPoint, eventPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.RED));
+			}else{
+				selector = createFigure(startPoint,eventPoint);
+			}
+			if(selector != null) {
+				redrawCanvas();
+				drawFigure(selector);
 			}
 		});
 
@@ -189,6 +210,9 @@ public class PaintPane extends BorderPane {
 	private boolean isSelectedActionPossible() {
         return !canvasState.SelectedFiguresIsEmpty();
     }
+	private boolean isEndPointValid(Point endPoint) {
+		return !(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY());
+	}
 
 
 }

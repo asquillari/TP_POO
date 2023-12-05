@@ -64,5 +64,12 @@ public class CanvasState {
         figures.removeAll(selectedFigures);
         resetSelectedFigures();
     }
+    public boolean belongsToASelectedFigure(Point eventPoint) {
+        for(Figure selectedFigure : selectedFigures) {
+            if (selectedFigure.contains(eventPoint))
+                return true;
+        }
+        return false;
+    }
 }
 
