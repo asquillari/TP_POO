@@ -76,6 +76,14 @@ public class CanvasState {
         }
     }
 
+    public void setSelectedFiguresShadow(boolean shadow) {
+        for(Set<Figure> selectedFigures : selectedFigures) {
+            for(Figure selectedFigure : selectedFigures) {
+                selectedFigure.setShadow(shadow);
+            }
+        }
+    }
+
     public void addSelectedFigure(Figure selectedFigure) {
         selectedFigures.clear();
         Set<Figure> toAdd = new HashSet<>();
