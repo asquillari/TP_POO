@@ -91,6 +91,8 @@ public class CanvasState {
         figures.removeAll(selectedFigures);
         resetSelectedFigures();
     }
+
+
     public boolean belongsToASelectedFigure(Point eventPoint) {
         for(Set<Figure> selectedFigures : selectedFigures) {
             for (Figure selectedFigure : selectedFigures) {

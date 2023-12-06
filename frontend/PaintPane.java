@@ -174,16 +174,18 @@ public class PaintPane extends BorderPane {
 			redrawCanvas();
 		});
 
-	/*	tools.degroupAction(event ->{
-			if(selector != null){
-				Set<Figure> degroupSet= canvasState.selectedFigures();
-				if(canvasState.deleteSetFigures(degroupSet)){
-					for(Figure figure: degroupSet){
-						canvasState.addFigure(figure);
-					}
+		tools.degroupAction(event ->{
+			if(selector != null) {
+				Set<Figure> degroupSet = canvasState.selectedFigures();
+				canvasState.deleteSelected();
+				for (Figure figure : degroupSet) {
+					canvasState.addFigure(figure);
 				}
+				selector= null;
+				canvasState.resetSelectedFigures();
+				redrawCanvas();
 			}
-		});*/
+		});
 
 
 		setLeft(tools);
