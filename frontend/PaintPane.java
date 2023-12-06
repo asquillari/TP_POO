@@ -36,6 +36,9 @@ public class PaintPane extends BorderPane {
 	// StatusBar
 	StatusPane statusPane;
 
+	//CheckBox
+	PaintPane checkBoxes;
+
 	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
@@ -59,10 +62,6 @@ public class PaintPane extends BorderPane {
 				redrawCanvas();
 				return;
 			}
-
-
-			if (selector == null)
-				return;
 
 			// Cuando se suelta el mouse si la figura dibujada no es el rectangulo del selector se almacena en el array
 			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
@@ -121,8 +120,11 @@ public class PaintPane extends BorderPane {
 				} else {
 					statusPane.updateStatus("Ninguna figura encontrada");
 				}
-				redrawCanvas();
 			}
+			if (selector != null){
+				checkBoxes.setSelected(selector.hasShadow(), selector.hashGradient(), selector.hasArch());
+			}
+			redrawCanvas();
 		});
 
 		canvas.setOnMouseDragged(event -> {
@@ -209,15 +211,15 @@ public class PaintPane extends BorderPane {
 		for(Figure figure : canvasState.figures()) {
 			//
 			if(figure != null){
-				drawFigure(figure);
+				drawFigure(figure, checkBoxes.isShadowSelected(), checkBoxes.isGradientSelected(), checkBoxes.isArchSelected());
 			}
 		}
 	}
 
-	private void drawFigure(Figure figure) {
+	private void drawFigure(Figure figure, boolean shadow, boolean gradient, boolean arch) {
 		gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : toFxColor(figure.getLineColor()));
 		gc.setFill(toFxColor(figure.getFillColor()));
-		figure.draw();
+		figure.draw(shadow, gradient, arch);
 	}
 
 	boolean figureBelongs(Figure figure, Point eventPoint) {
