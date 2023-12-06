@@ -2,6 +2,8 @@ package TP_POO.frontend;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -46,15 +48,18 @@ public class CheckPointPane extends BorderPane {
         cbArch.setSelected(hasArch);
     }
 
-    public boolean isShadowSelected(){
-        return cbShadow.isSelected();
+    public void shadowAction(EventHandler<ActionEvent> action){
+        cbShadow.setOnAction(action);
     }
-    public boolean isGradientSelected(){
-        return cbGradient.isSelected();
+
+    public void gradientAction(EventHandler<ActionEvent> action){
+        cbGradient.setOnAction(action);
     }
-    public boolean isArchSelected(){
-        return cbArch.isSelected();
+
+    public void archAction(EventHandler<ActionEvent> action){
+        cbArch.setOnAction(action);
     }
+
 
     
 }

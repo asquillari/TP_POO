@@ -97,6 +97,7 @@ public class PaintPane extends BorderPane {
 			} else {
 				statusPane.updateStatus(eventPoint.toString());
 			}
+
 		});
 
 		canvas.setOnMouseClicked(event -> {
