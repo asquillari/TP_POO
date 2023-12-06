@@ -190,7 +190,13 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
-		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(true); redrawCanvas();});
+		checkBoxes.shadowAction(event -> {
+			if(selector != null) {
+				canvasState.setSelectedFiguresShadow(true);
+				redrawCanvas();
+			}
+		});
+
 		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(true); redrawCanvas();});
 		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArched(true); redrawCanvas();});
 
@@ -215,7 +221,7 @@ public class PaintPane extends BorderPane {
 		for(Figure figure : canvasState.figures()) {
 			//
 			if(figure != null){
-				drawFigure(figure, checkBoxes.isShadowSelected(), checkBoxes.isGradientSelected(), checkBoxes.isArchSelected());
+				drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
 			}
 		}
 	}
