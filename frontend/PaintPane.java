@@ -190,9 +190,9 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
-		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(); redrawCanvas();});
-		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(); redrawCanvas();});
-		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArch(); redrawCanvas();});
+		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(true); redrawCanvas();});
+		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(true); redrawCanvas();});
+		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArch(true); redrawCanvas();});
 
 		setLeft(tools);
 		setRight(canvas);
