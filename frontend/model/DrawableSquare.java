@@ -22,12 +22,11 @@ public class DrawableSquare extends Square {
                     getTopLeft().getY() + 10.0,
                     Math.abs(getTopLeft().getX() - getBottomRight().getX()),
                     Math.abs(getTopLeft().getY() - getBottomRight().getY()));
-        }else{
-            gc.fillRect(getTopLeft().getX(), getTopLeft().getY(),
-                    Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
-            gc.strokeRect(getTopLeft().getX(), getTopLeft().getY(),
-                    Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
-
         }
+        gc.setFill(getFillColor().toFxColor());
+        gc.fillRect(getTopLeft().getX(), getTopLeft().getY(),
+                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
+        gc.strokeRect(getTopLeft().getX(), getTopLeft().getY(),
+                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
     }
 }

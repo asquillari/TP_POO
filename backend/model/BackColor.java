@@ -1,5 +1,7 @@
 package TP_POO.backend.model;
 
+import javafx.scene.paint.Color;
+
 public class BackColor {
     private final double red; // valor de rojo del color en escala de [0-1]
     private final double green; // valor de verde del color en escala de [0-1]
@@ -31,5 +33,9 @@ public class BackColor {
 
     public double getTransparency() {
         return transparency;
+    }
+
+    public Color toFxColor() {
+        return new Color(getRed(), getGreen(), getBlue(), getTransparency());
     }
 }

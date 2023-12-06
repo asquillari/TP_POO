@@ -24,9 +24,9 @@ public class DrawableCircle extends Circle {
             gc.fillOval(getCenterPoint().getX() - getRadius() + 10.0,
                     getCenterPoint().getY() - getRadius() + 10.0, getDiamiter(), getDiamiter());
 
-        }else{
-            gc.fillOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
-            gc.strokeOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
         }
+        gc.setFill(getFillColor().toFxColor());
+        gc.fillOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
+        gc.strokeOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
     }
 }

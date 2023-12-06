@@ -192,7 +192,7 @@ public class PaintPane extends BorderPane {
 
 		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(true); redrawCanvas();});
 		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(true); redrawCanvas();});
-		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArch(true); redrawCanvas();});
+		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArched(true); redrawCanvas();});
 
 		setLeft(tools);
 		setRight(canvas);
@@ -221,8 +221,7 @@ public class PaintPane extends BorderPane {
 	}
 
 	private void drawFigure(Figure figure, boolean shadow, boolean gradient, boolean arch) {
-		gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : toFxColor(figure.getLineColor()));
-		gc.setFill(toFxColor(figure.getFillColor()));
+		gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : figure.getLineColor().toFxColor());
 		figure.draw(shadow, gradient, arch);
 	}
 
@@ -233,9 +232,7 @@ public class PaintPane extends BorderPane {
 		return false;
 	}
 
-	private Color toFxColor(BackColor backendColor) {
-		return new Color(backendColor.getRed(), backendColor.getGreen(), backendColor.getBlue(), backendColor.getTransparency());
-	}
+
 	private BackColor toBackendColor(Color fxColor) {
 		return new BackColor(fxColor.getRed(), fxColor.getGreen(), fxColor.getBlue(), fxColor.getOpacity());
 	}
