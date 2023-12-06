@@ -4,6 +4,9 @@ import TP_POO.backend.interfaces.Colorable;
 import TP_POO.backend.interfaces.Drawable;
 import TP_POO.backend.interfaces.Movable;
 import TP_POO.backend.interfaces.Selectable;
+import javafx.scene.paint.Paint;
+
+import java.awt.*;
 
 public abstract class Figure implements Movable, Drawable, Selectable, Colorable {
     private double lineWidth;
@@ -72,4 +75,9 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     public boolean hasArched() {
         return arched;
     }
+
+    public abstract void implementShadow(boolean shadow);
+    public abstract Paint implementGradient(boolean gradient);
+    public abstract void implementArch(boolean arch);
+
 }
