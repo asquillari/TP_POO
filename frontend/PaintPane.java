@@ -64,6 +64,9 @@ public class PaintPane extends BorderPane {
 				return;
 			}
 
+			if (selector == null)
+				return;
+
 			// Cuando se suelta el mouse si la figura dibujada no es el rectangulo del selector se almacena en el array
 			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
 				if (!canvasState.selectFigures(selector))
@@ -119,11 +122,9 @@ public class PaintPane extends BorderPane {
 				} else {
 					statusPane.updateStatus("Ninguna figura encontrada");
 				}
-				if (selector != null){
-					checkBoxes.setSelected(selector.hasShadow(), selector.hasGradient(), selector.hasArched());
-				}
+				redrawCanvas();
+
 			}
-			redrawCanvas();
 		});
 
 		canvas.setOnMouseDragged(event -> {
@@ -188,6 +189,9 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
+		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(); redrawCanvas();});
+		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(); redrawCanvas();});
+		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArch(); redrawCanvas();});
 
 		setLeft(tools);
 		setRight(canvas);
