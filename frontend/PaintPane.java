@@ -215,7 +215,6 @@ public class PaintPane extends BorderPane {
 	}
 
 	private void drawFigure(Figure figure) {
-		gc.setStroke(Color.RED);
 		gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : toFxColor(figure.getLineColor()));
 		gc.setFill(toFxColor(figure.getFillColor()));
 		figure.draw();
