@@ -9,8 +9,8 @@ public class DrawableCircle extends Circle {
 
     private final GraphicsContext gc;
 
-    public DrawableCircle(Point centerPoint, double radius, GraphicsContext gc, BackColor fillColor, BackColor lineColor) {
-        super(centerPoint, radius, fillColor, lineColor);
+    public DrawableCircle(Point centerPoint, double radius, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth) {
+        super(centerPoint, radius, fillColor, lineColor, lineWidth);
         this.gc = gc;
     }
 

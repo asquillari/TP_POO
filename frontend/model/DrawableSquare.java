@@ -8,8 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 public class DrawableSquare extends Square {
 
     private final GraphicsContext gc;
-    public DrawableSquare(Point topLeft, double size, GraphicsContext gc, BackColor fillColor, BackColor lineColor){
-        super(topLeft, size, fillColor, lineColor);
+    public DrawableSquare(Point topLeft, double size, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth){
+        super(topLeft, size, fillColor, lineColor, lineWidth);
         this.gc = gc;
     }
 

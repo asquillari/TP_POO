@@ -8,8 +8,8 @@ import javafx.scene.canvas.GraphicsContext;
 public class DrawableRectangle extends Rectangle {
 
     private final GraphicsContext gc;
-    public DrawableRectangle(Point topLeft, Point bottomRight, GraphicsContext gc, BackColor fillColor , BackColor lineColor){
-        super(topLeft, bottomRight, fillColor, lineColor);
+    public DrawableRectangle(Point topLeft, Point bottomRight, GraphicsContext gc, BackColor fillColor , BackColor lineColor, double lineWidth){
+        super(topLeft, bottomRight, fillColor, lineColor, lineWidth);
         this.gc = gc;
     }
 
