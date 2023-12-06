@@ -113,9 +113,9 @@ public class PaintPane extends BorderPane {
 				for (Figure figure : canvasState.figures()) {
 					if(figureBelongs(figure, eventPoint)) {
 						found = true;
-
 						canvasState.addSelectedFigure(figure);
 						label.append(figure.toString());
+						checkBoxes.setSelected(figure.hasShadow(), figure.hasGradient(), figure.hasArched());
 					}
 				}
 				if (found) {
@@ -190,15 +190,9 @@ public class PaintPane extends BorderPane {
 			}
 		});
 
-		checkBoxes.shadowAction(event -> {
-			if(selector != null) {
-				canvasState.setSelectedFiguresShadow(true);
-				redrawCanvas();
-			}
-		});
-
-		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(true); redrawCanvas();});
-		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArched(true); redrawCanvas();});
+		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(checkBoxes.isShadowSelected()); redrawCanvas();});
+		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(checkBoxes.isGradientSelected()); redrawCanvas();});
+		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArched(checkBoxes.isArchSelected()); redrawCanvas();});
 
 		setLeft(tools);
 		setRight(canvas);
@@ -210,7 +204,7 @@ public class PaintPane extends BorderPane {
 	private Figure createFigure(Point startPoint, Point endPoint) {
 		for (FigureButton figureButton : tools.getFigureButtons()) {
 			if (figureButton.isSelected()) {
-				return figureButton.create(startPoint, endPoint, gc, toBackendColor(tools.getFillColor()), toBackendColor(lineColor), LINE_WIDTH);
+				return figureButton.create(startPoint, endPoint, gc, toBackendColor(tools.getFillColor()), toBackendColor(lineColor), LINE_WIDTH, checkBoxes.isShadowSelected(), checkBoxes.isGradientSelected(), checkBoxes.isArchSelected());
 			}
 		}
 		return null;
