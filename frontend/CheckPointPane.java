@@ -1,5 +1,7 @@
 package TP_POO.frontend;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
@@ -13,33 +15,46 @@ public class CheckPointPane extends BorderPane {
     private static final String ARCH="Biseleado";
     private static final String LABEL="Efectos: ";
     private static final int SPACING=10;
-    private final Label label= new Label(LABEL);
+    private static final Label label= new Label(LABEL);
+    private CheckBox cbShadow = new CheckBox(SHADOW);
+
+    private CheckBox cbGradient = new CheckBox(GRADIENT);
+
+    private CheckBox cbArch = new CheckBox(ARCH);
 
     public CheckPointPane(){
+        initialize();
+    }
+    public void initialize(){
         setStyle("-fx-background-color: #999");
         HBox topBox = new HBox();
         topBox.setPadding(new Insets(SPACING));
         topBox.setSpacing(SPACING);
 
 
-        // CheckBox para efecto 1
-        CheckBox checkBox1 = new CheckBox(SHADOW);
-        // Configura el evento o lógica cuando se selecciona/deselecciona
-
-        // CheckBox para efecto 2
-        CheckBox checkBox2 = new CheckBox(GRADIENT);
-        // Configura el evento o lógica cuando se selecciona/deselecciona
-
-        // CheckBox para efecto 3
-        CheckBox checkBox3 = new CheckBox(ARCH);
-        // Configura el evento o lógica cuando se selecciona/deselecciona
-
         // Agrega los CheckBox al HBox
-        topBox.getChildren().addAll(label, checkBox1, checkBox2, checkBox3);
+        topBox.getChildren().addAll(label, cbShadow, cbGradient, cbArch);
         topBox.setAlignment(Pos.CENTER);
 
         // Configura el HBox en la parte superior del BorderPane
         setTop(topBox);
     }
+
+    public void setSelected(boolean hasShadow, boolean hasGradient, boolean hasArch){
+        cbShadow.setSelected(hasShadow);
+        cbGradient.setSelected(hasGradient);
+        cbArch.setSelected(hasArch);
+    }
+
+    public boolean isShadowSelected(){
+        return cbShadow.isSelected();
+    }
+    public boolean isGradientSelected(){
+        return cbGradient.isSelected();
+    }
+    public boolean isArchSelected(){
+        return cbArch.isSelected();
+    }
+
     
 }
