@@ -4,8 +4,8 @@ public abstract class Rectangle extends Figure {
 
     protected final Point topLeft, bottomRight;
 
-    public Rectangle(Point topLeft, Point bottomRight, BackColor fillColor, BackColor lineColor, double lineWidth) {
-        super(lineColor, fillColor, lineWidth);
+    public Rectangle(Point topLeft, Point bottomRight, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient,boolean arch) {
+        super(lineColor, fillColor, lineWidth, shadow, gradient, arch);
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
     }

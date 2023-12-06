@@ -18,14 +18,17 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     private boolean arched;
 
 
-    public Figure(BackColor lineColor, BackColor fillColor, double lineWidth){
-        setFigureProperties(lineColor, fillColor, lineWidth);
+    public Figure(BackColor lineColor, BackColor fillColor, double lineWidth,boolean shadow, boolean gradient, boolean arched){
+        setFigureProperties(lineColor, fillColor, lineWidth, shadow, gradient, arched);
     }
 
-    public void setFigureProperties(BackColor lineColor, BackColor fillColor, double lineWidth) {
+    public void setFigureProperties(BackColor lineColor, BackColor fillColor, double lineWidth, boolean shadow, boolean gradient, boolean arched) {
         setLineWidth(lineWidth);
         setLineColor(lineColor);
         setFillColor(fillColor);
+        this.shadow=shadow;
+        this.gradient=gradient;
+        this.arched=arched;
     }
 
     public BackColor getLineColor() {

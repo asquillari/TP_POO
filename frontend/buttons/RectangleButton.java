@@ -14,7 +14,7 @@ public class RectangleButton extends FigureButton {
     }
 
     @Override
-    public Figure create(Point startPoint, Point endPoint, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth) {
-        return new DrawableRectangle(startPoint, endPoint, gc, fillColor, lineColor, lineWidth);
+    public Figure create(Point startPoint, Point endPoint, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch) {
+        return new DrawableRectangle(startPoint, endPoint, gc, fillColor, lineColor, lineWidth, shadow, gradient, arch);
     }
 }

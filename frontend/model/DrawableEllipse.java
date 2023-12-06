@@ -9,9 +9,10 @@ import javafx.scene.paint.Paint;
 
 public class DrawableEllipse extends Ellipse {
     private final GraphicsContext gc;
-    public DrawableEllipse(Point centerPoint, double sMayorAxis, double sMinorAxis, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth){
-        super(centerPoint, sMayorAxis, sMinorAxis, fillColor, lineColor, lineWidth);
+    public DrawableEllipse(Point centerPoint, double sMayorAxis, double sMinorAxis, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch){
+        super(centerPoint, sMayorAxis, sMinorAxis, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
+        draw(shadow, gradient, arch);
     }
 
     @Override

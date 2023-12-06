@@ -146,7 +146,7 @@ public class PaintPane extends BorderPane {
 				return;
 			}
 			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
-				selector = new DrawableRectangle(startPoint, eventPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.RED), LINE_WIDTH);
+				selector = new DrawableRectangle(startPoint, eventPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.RED), LINE_WIDTH, false, false, false);
 			}else{
 				selector = createFigure(startPoint,eventPoint);
 			}

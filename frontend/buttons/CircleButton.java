@@ -12,9 +12,9 @@ public class CircleButton extends FigureButton {
     }
 
     @Override
-    public Figure create(Point startPoint, Point endPoint, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth) {
+    public Figure create(Point startPoint, Point endPoint, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch) {
         double radius = Math.abs(endPoint.getX() - startPoint.getX());
-        return new DrawableCircle(startPoint, radius, gc, fillColor, lineColor, lineWidth);
+        return new DrawableCircle(startPoint, radius, gc, fillColor, lineColor, lineWidth, shadow, gradient,  arch);
     }
 
 }

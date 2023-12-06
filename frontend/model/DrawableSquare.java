@@ -13,9 +13,10 @@ import javafx.scene.paint.Stop;
 public class DrawableSquare extends Square {
 
     private final GraphicsContext gc;
-    public DrawableSquare(Point topLeft, double size, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth){
-        super(topLeft, size, fillColor, lineColor, lineWidth);
+    public DrawableSquare(Point topLeft, double size, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch){
+        super(topLeft, size, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
+        draw(shadow, gradient, arch);
     }
 
     @Override

@@ -10,10 +10,13 @@ import javafx.scene.paint.Paint;
 public class DrawableRectangle extends Rectangle {
 
     private final GraphicsContext gc;
-    public DrawableRectangle(Point topLeft, Point bottomRight, GraphicsContext gc, BackColor fillColor , BackColor lineColor, double lineWidth){
-        super(topLeft, bottomRight, fillColor, lineColor, lineWidth);
+    public DrawableRectangle(Point topLeft, Point bottomRight, GraphicsContext gc, BackColor fillColor , BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch){
+        super(topLeft, bottomRight, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
+        draw(shadow, gradient, arch);
     }
+
+
 
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
