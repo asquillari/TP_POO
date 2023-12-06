@@ -83,6 +83,20 @@ public class CanvasState {
             }
         }
     }
+    public void setSelectedFiguresGradient(boolean gradient) {
+        for(Set<Figure> selectedFigures : selectedFigures) {
+            for(Figure selectedFigure : selectedFigures) {
+                selectedFigure.setGradient(gradient);
+            }
+        }
+    }
+    public void setSelectedFiguresArched(boolean arched) {
+        for(Set<Figure> selectedFigures : selectedFigures) {
+            for(Figure selectedFigure : selectedFigures) {
+                selectedFigure.setArched(arched);
+            }
+        }
+    }
 
     public void addSelectedFigure(Figure selectedFigure) {
         selectedFigures.clear();
