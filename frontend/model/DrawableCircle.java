@@ -6,6 +6,7 @@ import TP_POO.backend.model.Point;
 import javafx.scene.canvas.GraphicsContext;
 
 import javafx.scene.paint.*;
+import javafx.scene.shape.ArcType;
 
 
 public class DrawableCircle extends Circle {
@@ -21,9 +22,12 @@ public class DrawableCircle extends Circle {
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
         implementShadow(shadow);
-        gc.setFill(implementGradient(gradient));
+        gc.setFill(getFillColor().toFxColor());
+        gc.setLineWidth(this.getLineWidth());
+        implementGradient(gradient);
         gc.fillOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
         gc.strokeOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
+        implementArch(arch);
     }
 
     @Override
@@ -37,17 +41,24 @@ public class DrawableCircle extends Circle {
     }
     @Override
     public void implementArch(boolean arch) {
-
+        if(arch) {
+            double arcX = getCenterPoint().getX() - getRadius();
+            double arcY = getCenterPoint().getY() - getRadius();
+            gc.setLineWidth(10);
+            gc.setStroke(Color.LIGHTGRAY);
+            gc.strokeArc(arcX, arcY, getDiamiter(), getDiamiter(), 45, 180, ArcType.OPEN);
+            gc.setStroke(Color.BLACK);
+            gc.strokeArc(arcX, arcY, getDiamiter(), getDiamiter(), 225, 180, ArcType.OPEN);
+        }
     }
     @Override
-    public Paint implementGradient(boolean gradient) {
+    public void implementGradient(boolean gradient) {
         if (gradient){
-            RadialGradient radialGradient = new RadialGradient(getCenterPoint().getX(), getCenterPoint().getY(), getRadius(), getCenterPoint().getX(), getCenterPoint().getY(), true,
+            RadialGradient radialGradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true,
                     CycleMethod.NO_CYCLE,
                     new Stop(0, getFillColor().toFxColor()),
                     new Stop(1, getFillColor().toFxColor().invert()));
-            return radialGradient;
+            gc.setFill(radialGradient);
         }
-        return getFillColor().toFxColor();
     }
 }

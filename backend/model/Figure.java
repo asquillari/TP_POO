@@ -80,7 +80,7 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     }
 
     public abstract void implementShadow(boolean shadow);
-    public abstract Paint implementGradient(boolean gradient);
+    public abstract void implementGradient(boolean gradient);
     public abstract void implementArch(boolean arch);
 
 }

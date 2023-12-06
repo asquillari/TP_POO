@@ -4,8 +4,8 @@ import TP_POO.backend.model.BackColor;
 import TP_POO.backend.model.Ellipse;
 import TP_POO.backend.model.Point;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.scene.paint.*;
+import javafx.scene.shape.ArcType;
 
 public class DrawableEllipse extends Ellipse {
     private final GraphicsContext gc;
@@ -18,9 +18,12 @@ public class DrawableEllipse extends Ellipse {
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
         implementShadow(shadow);
-        gc.setFill(implementGradient(gradient));
+        gc.setFill(getFillColor().toFxColor());
+        gc.setLineWidth(this.getLineWidth());
+        implementGradient(gradient);
         gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
         gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
+        implementArch(arch);
     }
     @Override
     public void implementShadow(boolean shadow) {
@@ -31,10 +34,24 @@ public class DrawableEllipse extends Ellipse {
     }
     @Override
     public void implementArch(boolean arch) {
-
+        if(arch) {
+            double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
+            double arcY = getCenterPoint().getY() - getsMayorAxis()/2;
+            gc.setLineWidth(10);
+            gc.setStroke(Color.LIGHTGRAY);
+            gc.strokeArc(arcX, arcY, getsMayorAxis(), getsMinorAxis(), 45, 180, ArcType.OPEN);
+            gc.setStroke(Color.BLACK);
+            gc.strokeArc(arcX, arcY, getsMayorAxis(), getsMinorAxis(), 225, 180, ArcType.OPEN);
+        }
     }
     @Override
-    public Paint implementGradient(boolean gradient) {
-        return getFillColor().toFxColor();
+    public void implementGradient(boolean gradient) {
+        if (gradient){
+            RadialGradient radialGradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true,
+                    CycleMethod.NO_CYCLE,
+                    new Stop(0, getFillColor().toFxColor()),
+                    new Stop(1, getFillColor().toFxColor().invert()));
+            gc.setFill(radialGradient);
+        }
     }
 }
