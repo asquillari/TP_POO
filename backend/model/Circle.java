@@ -18,5 +18,6 @@ public abstract class Circle extends Ellipse{
     public double getRadius() {
         return sMayorAxis/2;
     }
+    public double getDiamiter(){return getRadius() * 2;}
 
 }

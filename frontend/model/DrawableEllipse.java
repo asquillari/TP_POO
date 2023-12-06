@@ -4,6 +4,7 @@ import TP_POO.backend.model.BackColor;
 import TP_POO.backend.model.Ellipse;
 import TP_POO.backend.model.Point;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class DrawableEllipse extends Ellipse {
     private final GraphicsContext gc;
@@ -13,8 +14,13 @@ public class DrawableEllipse extends Ellipse {
     }
 
     @Override
-    public void draw() {
-        gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
-        gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
+    public void draw(boolean shadow, boolean gradient, boolean arch) {
+        if(shadow){
+            gc.setFill(Color.GRAY);
+            gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2) + 10.0, getCenterPoint().getY() - (getsMinorAxis() / 2) + 10.0, getsMayorAxis(), getsMinorAxis());
+        }else{
+            gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
+            gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
+        }
     }
 }

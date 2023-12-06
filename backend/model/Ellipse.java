@@ -5,7 +5,7 @@ public abstract class Ellipse extends Figure {
     protected final double sMayorAxis, sMinorAxis;
 
     public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis, BackColor fillColor, BackColor lineColor, double lineWidth) {
-        super(fillColor, lineColor, lineWidth);
+        super(lineColor, fillColor, lineWidth);
         this.centerPoint = centerPoint;
         this.sMayorAxis = sMayorAxis;
         this.sMinorAxis = sMinorAxis;

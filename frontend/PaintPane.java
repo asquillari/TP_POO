@@ -37,11 +37,12 @@ public class PaintPane extends BorderPane {
 	StatusPane statusPane;
 
 	//CheckBox
-	PaintPane checkBoxes;
+	CheckPointPane checkBoxes;
 
-	public PaintPane(CanvasState canvasState, StatusPane statusPane) {
+	public PaintPane(CanvasState canvasState, StatusPane statusPane, CheckPointPane checkBoxes) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
+		this.checkBoxes = checkBoxes;
 
 		gc.setLineWidth(LINE_WIDTH);
 
@@ -102,8 +103,6 @@ public class PaintPane extends BorderPane {
 
 			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
-
-
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
 
@@ -120,9 +119,9 @@ public class PaintPane extends BorderPane {
 				} else {
 					statusPane.updateStatus("Ninguna figura encontrada");
 				}
-			}
-			if (selector != null){
-				checkBoxes.setSelected(selector.hasShadow(), selector.hashGradient(), selector.hasArch());
+				if (selector != null){
+					checkBoxes.setSelected(selector.hasShadow(), selector.hasGradient(), selector.hasArched());
+				}
 			}
 			redrawCanvas();
 		});
@@ -145,13 +144,13 @@ public class PaintPane extends BorderPane {
 				return;
 			}
 			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
-				selector = new DrawableRectangle(startPoint, eventPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.RED));
+				selector = new DrawableRectangle(startPoint, eventPoint, gc, toBackendColor(Color.TRANSPARENT), toBackendColor(Color.RED), LINE_WIDTH);
 			}else{
 				selector = createFigure(startPoint,eventPoint);
 			}
 			if(selector != null) {
 				redrawCanvas();
-				drawFigure(selector);
+				drawFigure(selector, selector.hasShadow(), selector.hasGradient(), selector.hasArched());
 			}
 		});
 
@@ -200,7 +199,7 @@ public class PaintPane extends BorderPane {
 	private Figure createFigure(Point startPoint, Point endPoint) {
 		for (FigureButton figureButton : tools.getFigureButtons()) {
 			if (figureButton.isSelected()) {
-				return figureButton.create(startPoint, endPoint, gc, toBackendColor(tools.getFillColor()), toBackendColor(lineColor));
+				return figureButton.create(startPoint, endPoint, gc, toBackendColor(tools.getFillColor()), toBackendColor(lineColor), LINE_WIDTH);
 			}
 		}
 		return null;

@@ -2,5 +2,5 @@ package TP_POO.backend.interfaces;
 
 @FunctionalInterface
 public interface Drawable {
-    void draw();
+    void draw(boolean shadow, boolean gradient, boolean arch);
 }
