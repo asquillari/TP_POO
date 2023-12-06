@@ -60,6 +60,13 @@ public class CheckPointPane extends BorderPane {
         cbArch.setOnAction(action);
     }
 
-
-    
+    public boolean isShadowSelected(){
+        return cbShadow.isSelected();
+    }
+    public boolean isGradientSelected(){
+        return cbGradient.isSelected();
+    }
+    public boolean isArchSelected(){
+        return cbArch.isSelected();
+    }
 }
