@@ -44,8 +44,8 @@ public class DrawableRectangle extends Rectangle {
         if (arch){
             double x = getTopLeft().getX();
             double y = getTopLeft().getY();
-            double width = Math.abs(x - getBottomRight().getX());
-            double height = Math.abs(y - getBottomRight().getY());
+            double width = distance(x , getBottomRight().getX());
+            double height = distance(y , getBottomRight().getY());
             gc.setLineWidth(10);
             gc.setStroke(Color.LIGHTGRAY);
             gc.strokeLine(x, y, x + width, y);

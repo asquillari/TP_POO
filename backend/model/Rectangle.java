@@ -36,7 +36,7 @@ public abstract class Rectangle extends Figure {
 
     @Override
     public void rotate() {
-// Obtener las coordenadas de los puntos
+        // Obtener las coordenadas de los puntos
         double centerX = (topLeft.getX() + bottomRight.getX()) / 2.0;
         double centerY = (topLeft.getY() + bottomRight.getY()) / 2.0;
 
@@ -50,13 +50,13 @@ public abstract class Rectangle extends Figure {
 
     @Override
     public void flipH() {
-        double distance= bottomRight.getX()-topLeft.getX();
+        double distance= distance(bottomRight.getX(),topLeft.getX());
         setPoints(new Point(topLeft.getX()+distance, topLeft.getY()), new Point(distance + bottomRight.getX(), bottomRight.getY()));
     }
 
     @Override
     public void flipV() {
-        double distance= bottomRight.getY()- topLeft.getY();
+        double distance= distance(bottomRight.getY(), topLeft.getY());
         setPoints(new Point(topLeft.getX(),  distance + topLeft.getY()), new Point(bottomRight.getX(),  distance + bottomRight.getY()));
     }
 
@@ -69,5 +69,8 @@ public abstract class Rectangle extends Figure {
     @Override
     public boolean isContained(Figure figure) {
         return figure.contains(topLeft) && figure.contains(bottomRight);
+    }
+    public double distance(double p1, double p2){
+        return Math.abs(p1 - p2);
     }
 }
