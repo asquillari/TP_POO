@@ -58,14 +58,12 @@ public abstract class Ellipse extends Figure {
 
     @Override
     public void resizeP() {
-        sMinorAxis *= 1.25;
-        sMayorAxis *= 1.25;
+        setsAxis(sMayorAxis*1.25, sMinorAxis*1.25);
     }
 
     @Override
     public void resizeM() {
-        sMinorAxis *= 0.75;
-        sMayorAxis *= 0.75;
+        setsAxis(sMayorAxis*0.75, sMinorAxis*0.75);
     }
 
     @Override
