@@ -200,6 +200,7 @@ public class PaintPane extends BorderPane {
 		tools.figureButtonAction(event -> {canvasState.resetSelectedFigures(); redrawCanvas();});
 	}
 
+	// metodos auxiliares
 	private Figure createFigure(Point startPoint, Point endPoint) {
 		for (FigureButton figureButton : tools.getFigureButtons()) {
 			if (figureButton.isSelected()) {
@@ -209,10 +210,9 @@ public class PaintPane extends BorderPane {
 		return null;
 	}
 
-	void redrawCanvas() {
+	private void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		for(Figure figure : canvasState.figures()) {
-			//
 			if(figure != null){
 				drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
 			}
@@ -223,15 +223,12 @@ public class PaintPane extends BorderPane {
 		gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : figure.getLineColor().toFxColor());
 		figure.draw(shadow, gradient, arch);
 	}
-
-	boolean figureBelongs(Figure figure, Point eventPoint) {
+	private boolean figureBelongs(Figure figure, Point eventPoint) {
 		if(figure != null){
 			return figure.contains(eventPoint);
 		}
 		return false;
 	}
-
-
 	private BackColor toBackendColor(Color fxColor) {
 		return new BackColor(fxColor.getRed(), fxColor.getGreen(), fxColor.getBlue(), fxColor.getOpacity());
 	}
@@ -242,6 +239,4 @@ public class PaintPane extends BorderPane {
 	private boolean isEndPointValid(Point endPoint) {
 		return !(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY());
 	}
-
-
 }
