@@ -20,6 +20,11 @@ public class Tools extends VBox {
     private final static String BORRAR = "Borrar";
     private final static  String AGRUPAR = "Agrupar";
     private final static String DESAGRUPAR = "Desagrupar";
+    private final static String GIRARD = "Girar D";
+    private final static String VOLTEARH = "Voldear H";
+    private final static String VOLTEARV = "Voltear V";
+    private final static String ESCALARMAS = "Escalar +";
+    private final static String ESCALARMENOS = "Escalar -";
     private final static int MIN_WIDTH = 90;
     private final static int INSETS_PADDING = 5;
     private final static int PREF_WIDTH = 100;
@@ -34,6 +39,11 @@ public class Tools extends VBox {
     private final ToggleButton deleteButton = new ToggleButton(BORRAR);
     private final ToggleButton groupButton = new ToggleButton(AGRUPAR);
     private final ToggleButton degroupButton = new ToggleButton(DESAGRUPAR);
+    private final ToggleButton rotateButton = new ToggleButton(GIRARD);
+    private final ToggleButton flipHButton = new ToggleButton(VOLTEARH);
+    private final ToggleButton flipVButton = new ToggleButton(VOLTEARV);
+    private final ToggleButton resizePlusButton = new ToggleButton(ESCALARMAS);
+    private final ToggleButton resizeMinusButton = new ToggleButton(ESCALARMENOS);
 
     private final FigureButton[] figureButtonsArr = {rectangleButton, circleButton, squareButton, ellipseButton};
     private final static Color DEFAULT_FILL_COLOR = Color.YELLOW;
