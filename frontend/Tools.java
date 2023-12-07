@@ -51,7 +51,7 @@ public class Tools extends VBox {
     private final static Cursor HAND = Cursor.HAND;
     public Tools(){
 
-        ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton, groupButton, degroupButton};
+        ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton, groupButton, degroupButton, rotateButton, flipHButton, flipVButton, resizePlusButton, resizeMinusButton};
         ToggleGroup tools = new ToggleGroup();
         for (ToggleButton tool : toolsArr) {
             tool.setMinWidth(MIN_WIDTH);
@@ -92,4 +92,21 @@ public class Tools extends VBox {
     public void degroupAction(EventHandler<ActionEvent> action){
         degroupButton.setOnAction(action);
     }
+    public void rotateAction(EventHandler<ActionEvent> action){
+        rotateButton.setOnAction(action);
+    }
+    public void flipHAction(EventHandler<ActionEvent> action){
+        flipHButton.setOnAction(action);
+    }
+    public void flipVAction(EventHandler<ActionEvent> action){
+        flipVButton.setOnAction(action);
+    }
+    public void resizePAction(EventHandler<ActionEvent> action){
+        resizePlusButton.setOnAction(action);
+    }
+    public void resizeMAction(EventHandler<ActionEvent> action){
+        resizeMinusButton.setOnAction(action);
+    }
+
+
 }
