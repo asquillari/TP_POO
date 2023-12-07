@@ -196,6 +196,16 @@ public class PaintPane extends BorderPane {
 			redrawCanvas();
 		});
 
+		tools.flipHAction(event->{
+			canvasState.flipHSelected();
+			redrawCanvas();
+		});
+
+		tools.flipVAction(event->{
+			canvasState.flipVSelected();
+			redrawCanvas();
+		});
+
 		setLeft(tools);
 		setRight(canvas);
 

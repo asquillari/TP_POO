@@ -49,6 +49,18 @@ public abstract class Rectangle extends Figure {
     }
 
     @Override
+    public void flipH() {
+        double distance= bottomRight.getX()-topLeft.getX();
+        setPoints(new Point(topLeft.getX()+distance, topLeft.getY()), new Point(distance + bottomRight.getX(), bottomRight.getY()));
+    }
+
+    @Override
+    public void flipV() {
+        double distance= bottomRight.getY()- topLeft.getY();
+        setPoints(new Point(topLeft.getX(),  distance + topLeft.getY()), new Point(bottomRight.getX(),  distance + bottomRight.getY()));
+    }
+
+    @Override
     public boolean contains(Point point) {
         return point.getX() > getTopLeft().getX() && point.getX() < getBottomRight().getX() &&
                 point.getY() > getTopLeft().getY() && point.getY() < getBottomRight().getY();

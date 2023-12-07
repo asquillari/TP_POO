@@ -1,18 +1,22 @@
 package TP_POO.backend.model;
 
 public abstract class Ellipse extends Figure {
-    protected final Point centerPoint;
+    protected Point centerPoint;
     protected double sMayorAxis, sMinorAxis;
 
     public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch) {
         super(lineColor, fillColor, lineWidth, shadow, gradient, arch);
-        this.centerPoint = centerPoint;
+        setCenterPoint(centerPoint);
         setsAxis(sMayorAxis, sMinorAxis);
     }
 
     private void setsAxis(double sMayorAxis, double sMinorAxis) {
         this.sMayorAxis = sMayorAxis;
         this.sMinorAxis= sMinorAxis;
+    }
+
+    private void setCenterPoint(Point centerPoint){
+        this.centerPoint=centerPoint;
     }
 
     @Override
@@ -40,6 +44,16 @@ public abstract class Ellipse extends Figure {
     @Override
     public void rotate() {
         setsAxis(sMinorAxis, sMayorAxis);
+    }
+
+    @Override
+    public void flipV() {
+        setCenterPoint(new Point(centerPoint.getX(), centerPoint.getY()+sMinorAxis));
+    }
+
+    @Override
+    public void flipH() {
+        setCenterPoint(new Point(centerPoint.getX()+ sMayorAxis, centerPoint.getY()));
     }
 
     @Override

@@ -134,5 +134,16 @@ public class CanvasState {
             figure.rotate();
         }
     }
+
+    public void flipHSelected(){
+        for(Figure figure: selectedFigures()){
+            figure.flipH();
+        }
+    }
+    public void flipVSelected(){
+        for(Figure figure: selectedFigures()){
+            figure.flipV();
+        }
+    }
 }
 
