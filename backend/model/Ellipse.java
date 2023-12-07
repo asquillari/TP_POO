@@ -57,6 +57,18 @@ public abstract class Ellipse extends Figure {
     }
 
     @Override
+    public void resizeP() {
+        sMinorAxis *= 1.25;
+        sMayorAxis *= 1.25;
+    }
+
+    @Override
+    public void resizeM() {
+        sMinorAxis *= 0.75;
+        sMayorAxis *= 0.75;
+    }
+
+    @Override
     public boolean contains(Point point) {
         return ((Math.pow(point.getX() - getCenterPoint().getX(), 2) / Math.pow(getsMayorAxis(), 2)) +
                 (Math.pow(point.getY() - getCenterPoint().getY(), 2) / Math.pow(getsMinorAxis(), 2))) <= 0.30;

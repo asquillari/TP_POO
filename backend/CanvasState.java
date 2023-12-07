@@ -145,5 +145,15 @@ public class CanvasState {
             figure.flipV();
         }
     }
+    public void resizePSelected(){
+        for(Figure figure: selectedFigures()){
+            figure.resizeP();
+        }
+    }
+    public void resizeMSelected(){
+        for(Figure figure: selectedFigures()){
+            figure.resizeM();
+        }
+    }
 }
 

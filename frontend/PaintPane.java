@@ -205,6 +205,14 @@ public class PaintPane extends BorderPane {
 			canvasState.flipVSelected();
 			redrawCanvas();
 		});
+		tools.resizePAction(event->{
+			canvasState.resizePSelected();
+			redrawCanvas();
+		});
+		tools.resizeMAction(event->{
+			canvasState.resizeMSelected();
+			redrawCanvas();
+		});
 
 		setLeft(tools);
 		setRight(canvas);

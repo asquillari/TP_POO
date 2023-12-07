@@ -61,6 +61,29 @@ public abstract class Rectangle extends Figure {
     }
 
     @Override
+    public void resizeP() {
+        double ogWidth = distance(bottomRight.getX(),topLeft.getX());
+        double ogHeight = distance(bottomRight.getY(), topLeft.getY());
+        double increaseFactor = 1.25;
+        double newWidth = ogWidth * increaseFactor;
+        double newHeight = ogHeight * increaseFactor;
+        double offsetX = distance(newWidth, ogWidth);
+        double offsetY = distance(newHeight, ogHeight);
+        setPoints(new Point(topLeft.getX()-offsetX, topLeft.getY()-offsetY), new Point(bottomRight.getX()+offsetX, bottomRight.getY()+offsetY));
+    }
+
+    @Override
+    public void resizeM() {
+        double ogWidth = distance(bottomRight.getX(),topLeft.getX());
+        double ogHeight = distance(bottomRight.getY(), topLeft.getY());
+        double newWidth = ogWidth * 0.75;
+        double newHeight = ogHeight * 0.75;
+        double offsetX = distance(newWidth, ogWidth);
+        double offsetY = distance(newHeight, ogHeight);
+        setPoints(new Point(topLeft.getX()+offsetX, topLeft.getY()+offsetY), new Point(bottomRight.getX()-offsetX, bottomRight.getY()-offsetY));
+    }
+
+    @Override
     public boolean contains(Point point) {
         return point.getX() > getTopLeft().getX() && point.getX() < getBottomRight().getX() &&
                 point.getY() > getTopLeft().getY() && point.getY() < getBottomRight().getY();

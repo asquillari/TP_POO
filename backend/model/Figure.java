@@ -85,5 +85,7 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     public abstract void rotate();
     public abstract void flipH();
     public abstract void flipV();
+    public abstract void resizeM();
+    public abstract void resizeP();
 
 }
