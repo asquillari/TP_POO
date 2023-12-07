@@ -19,32 +19,31 @@ public class PaintPane extends BorderPane {
 	private static final int LINE_WIDTH = 1;
 
 	// BackEnd
-	CanvasState canvasState;
+	private final CanvasState canvasState;
 
 	// Canvas y relacionados
-	Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
-	GraphicsContext gc = canvas.getGraphicsContext2D();
+	private final Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+	private final GraphicsContext gc = canvas.getGraphicsContext2D();
 	Color lineColor = LINE_COLOR;
 
 	private final Tools tools = new Tools();
 
 	// Dibujar una figura
-	Point startPoint;
+	private Point startPoint;
 
-	Figure selector;
+	private Figure selector;
 
 	// StatusBar
-	StatusPane statusPane;
+	private final StatusPane statusPane;
 
 	//CheckBox
-	CheckPointPane checkBoxes;
+	private final CheckPointPane checkBoxes;
 
 	public PaintPane(CanvasState canvasState, StatusPane statusPane, CheckPointPane checkBoxes) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 		this.checkBoxes = checkBoxes;
 
-		gc.setLineWidth(LINE_WIDTH);
 
 		canvas.setOnMousePressed(event -> {
 			startPoint = new Point(event.getX(), event.getY());
