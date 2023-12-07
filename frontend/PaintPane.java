@@ -192,7 +192,8 @@ public class PaintPane extends BorderPane {
 		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArched(checkBoxes.isArchSelected()); redrawCanvas();});
 
 		tools.rotateAction(event -> {
-
+			canvasState.rotateSelected();
+			redrawCanvas();
 		});
 
 		setLeft(tools);

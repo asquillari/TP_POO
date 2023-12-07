@@ -2,13 +2,17 @@ package TP_POO.backend.model;
 
 public abstract class Ellipse extends Figure {
     protected final Point centerPoint;
-    protected final double sMayorAxis, sMinorAxis;
+    protected double sMayorAxis, sMinorAxis;
 
     public Ellipse(Point centerPoint, double sMayorAxis, double sMinorAxis, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch) {
         super(lineColor, fillColor, lineWidth, shadow, gradient, arch);
         this.centerPoint = centerPoint;
+        setsAxis(sMayorAxis, sMinorAxis);
+    }
+
+    private void setsAxis(double sMayorAxis, double sMinorAxis) {
         this.sMayorAxis = sMayorAxis;
-        this.sMinorAxis = sMinorAxis;
+        this.sMinorAxis= sMinorAxis;
     }
 
     @Override
@@ -34,6 +38,11 @@ public abstract class Ellipse extends Figure {
     }
 
     @Override
+    public void rotate() {
+        setsAxis(sMinorAxis, sMayorAxis);
+    }
+
+    @Override
     public boolean contains(Point point) {
         return ((Math.pow(point.getX() - getCenterPoint().getX(), 2) / Math.pow(getsMayorAxis(), 2)) +
                 (Math.pow(point.getY() - getCenterPoint().getY(), 2) / Math.pow(getsMinorAxis(), 2))) <= 0.30;
@@ -47,4 +56,6 @@ public abstract class Ellipse extends Figure {
         Point top = new Point(centerPoint.getX(), centerPoint.getY() - sMinorAxis/2);
         return figure.contains(left) && figure.contains(right) && figure.contains(bottom) && figure.contains(top);
     }
+
+
 }

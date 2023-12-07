@@ -128,5 +128,11 @@ public class CanvasState {
     public void deleteFigure(Figure figure){
         figures.removeIf(set -> set.contains(figure));
     }
+
+    public void rotateSelected() {
+        for(Figure figure: selectedFigures()){
+            figure.rotate();
+        }
+    }
 }
 

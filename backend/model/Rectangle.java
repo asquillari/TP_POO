@@ -2,12 +2,16 @@ package TP_POO.backend.model;
 
 public abstract class Rectangle extends Figure {
 
-    protected final Point topLeft, bottomRight;
+    protected Point topLeft, bottomRight;
 
     public Rectangle(Point topLeft, Point bottomRight, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient,boolean arch) {
         super(lineColor, fillColor, lineWidth, shadow, gradient, arch);
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+        setPoints(topLeft, bottomRight);
+    }
+
+    private void setPoints(Point topLeft, Point bottomRight){
+        this.bottomRight=bottomRight;
+        this.topLeft=topLeft;
     }
 
     //tengo una duda si aca devolvemos P o Point
@@ -28,6 +32,20 @@ public abstract class Rectangle extends Figure {
     public void move(double deltax, double deltay) {
         topLeft.move(deltax, deltay);
         bottomRight.move(deltax, deltay);
+    }
+
+    @Override
+    public void rotate() {
+// Obtener las coordenadas de los puntos
+        double centerX = (topLeft.getX() + bottomRight.getX()) / 2.0;
+        double centerY = (topLeft.getY() + bottomRight.getY()) / 2.0;
+
+        // Calcular las nuevas coordenadas después de una rotación de 90 grados
+        Point newTopLeft = new Point(centerX - (bottomRight.getY() - centerY), centerY - (centerX - topLeft.getX()));
+        Point newBottomRight = new Point(centerX + (centerY - topLeft.getY()), centerY + (bottomRight.getX() - centerX));
+
+        // Actualizar los puntos del rectángulo con las nuevas coordenadas
+        setPoints(newTopLeft, newBottomRight);
     }
 
     @Override

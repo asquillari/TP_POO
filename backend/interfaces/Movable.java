@@ -5,5 +5,4 @@ package TP_POO.backend.interfaces;
 public interface Movable {
     void move(double deltax, double deltay);
 
-
 }
