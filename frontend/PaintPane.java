@@ -191,28 +191,11 @@ public class PaintPane extends BorderPane {
 		checkBoxes.gradientAction(event -> {canvasState.setSelectedFiguresGradient(checkBoxes.isGradientSelected()); redrawCanvas();});
 		checkBoxes.archAction(event -> {canvasState.setSelectedFiguresArched(checkBoxes.isArchSelected()); redrawCanvas();});
 
-		tools.rotateAction(event -> {
-			canvasState.rotateSelected();
-			redrawCanvas();
-		});
-
-		tools.flipHAction(event->{
-			canvasState.flipHSelected();
-			redrawCanvas();
-		});
-
-		tools.flipVAction(event->{
-			canvasState.flipVSelected();
-			redrawCanvas();
-		});
-		tools.resizePAction(event->{
-			canvasState.resizePSelected();
-			redrawCanvas();
-		});
-		tools.resizeMAction(event->{
-			canvasState.resizeMSelected();
-			redrawCanvas();
-		});
+		tools.rotateAction(event -> {canvasState.rotateSelected(); redrawCanvas();});
+		tools.flipHAction(event->{canvasState.flipHSelected(); redrawCanvas();});
+		tools.flipVAction(event->{canvasState.flipVSelected(); redrawCanvas();});
+		tools.resizePAction(event->{canvasState.resizePSelected(); redrawCanvas();});
+		tools.resizeMAction(event->{canvasState.resizeMSelected(); redrawCanvas();});
 
 		setLeft(tools);
 		setRight(canvas);
