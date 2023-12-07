@@ -177,7 +177,6 @@ public class PaintPane extends BorderPane {
 		});
 
 		tools.degroupAction(event ->{
-			if(selector != null) {
 				Set<Figure> degroupSet = canvasState.selectedFigures();
 				canvasState.deleteSelected();
 				for (Figure figure : degroupSet) {
@@ -186,7 +185,6 @@ public class PaintPane extends BorderPane {
 				selector= null;
 				canvasState.resetSelectedFigures();
 				redrawCanvas();
-			}
 		});
 
 		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(checkBoxes.isShadowSelected()); redrawCanvas();});
