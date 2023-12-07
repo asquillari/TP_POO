@@ -1,5 +1,6 @@
 package TP_POO.frontend;
 
+import TP_POO.backend.model.Figure;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -23,6 +24,10 @@ public class CheckPointPane extends BorderPane {
     private CheckBox cbGradient = new CheckBox(GRADIENT);
 
     private CheckBox cbArch = new CheckBox(ARCH);
+
+    private boolean commonShadowState;
+    private boolean commonGradientState;
+    private boolean commonArchState;
 
     public CheckPointPane(){
         initialize();
@@ -68,5 +73,61 @@ public class CheckPointPane extends BorderPane {
     }
     public boolean isArchSelected(){
         return cbArch.isSelected();
+    }
+
+    public void updateBoxesStatus(Iterable<Figure> selected){
+        resetState();
+        resetBoxes();
+
+        boolean indeterminate = false;
+
+        Figure first = selected.iterator().next();
+
+        for(Figure current : selected){
+            if(current.hasShadow() != first.hasShadow()){
+                indeterminate = true;
+                cbShadow.allowIndeterminateProperty();
+                cbShadow.setIndeterminate(true);
+            }if(current.hasGradient() != first.hasGradient()){
+                indeterminate = true;
+                cbGradient.allowIndeterminateProperty();
+                cbGradient.setIndeterminate(true);
+            }if(current.hasArched() != first.hasArched()){
+                indeterminate = true;
+                cbArch.allowIndeterminateProperty();
+                cbArch.setIndeterminate(true);
+            }
+            if(!indeterminate){
+                updateStatus(current);
+            }
+        }
+
+        cbShadow.setSelected(commonShadowState);
+        cbArch.setSelected(commonArchState);
+        cbGradient.setSelected(commonGradientState);
+    }
+
+    private void updateStatus(Figure figure) {
+        commonArchState &= figure.hasArched();
+        commonShadowState &= figure.hasShadow();
+        commonGradientState &= figure.hasGradient();
+    }
+
+    private void resetState() {
+        commonShadowState=true;
+        commonGradientState=true;
+        commonArchState=true;
+    }
+
+    public void resetBoxes() {
+        cbShadow.setSelected(false);
+        cbGradient.setSelected(false);
+        cbArch.setSelected(false);
+        cbShadow.setIndeterminate(false);
+        cbShadow.setAllowIndeterminate(false);
+        cbGradient.setIndeterminate(false);
+        cbGradient.setAllowIndeterminate(false);
+        cbArch.setIndeterminate(false);
+        cbArch.setAllowIndeterminate(false);
     }
 }

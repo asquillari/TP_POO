@@ -221,6 +221,9 @@ public class PaintPane extends BorderPane {
 				drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
 			}
 		}
+		if(!canvasState.SelectedFiguresIsEmpty()) {
+			checkBoxes.updateBoxesStatus(canvasState.selectedFigures());
+		}
 	}
 
 	private void drawFigure(Figure figure, boolean shadow, boolean gradient, boolean arch) {
