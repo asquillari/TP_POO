@@ -33,6 +33,7 @@ public class LabelsPane extends BorderPane {
         onlyButton.setToggleGroup(toggleGroup);
         javafx.scene.control.TextArea labelText= new TextArea();
         labelText.setPrefWidth(WIDTH);
+        labelText.setPrefHeight(15);
         getChildren().add(labelText);
 
         lowBox.getChildren().addAll(showLabel, allButton, onlyButton, labelText);
