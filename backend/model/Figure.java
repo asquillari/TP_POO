@@ -90,15 +90,20 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
         labels.add(label);
         return false;
     }
-    public String[] getOldLabels(String[] newLabels){
+
+    //devuelve las viejas etiquetas reemplazandolas por las nuevas
+    public List<String> getOldLabels(String[] newLabels){
         List<String> toReturn = labels;
+        resetLabels();
         for (String label : newLabels){
             labels.add(label);
         }
-        resetLabels();
-        return toReturn.toArray(new String[0]);
+        return toReturn;
     }
 
+    public List<String> getLabels(){
+        return labels;
+    }
     private void resetLabels(){
         labels = new ArrayList<>();
     }

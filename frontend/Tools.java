@@ -1,5 +1,6 @@
 package TP_POO.frontend;
 
+import TP_POO.backend.model.Figure;
 import TP_POO.frontend.buttons.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +9,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+import java.util.List;
 
 public class Tools extends VBox {
     private final static String SELECCIONAR = "Seleccionar";
@@ -50,6 +53,7 @@ public class Tools extends VBox {
     private final FigureButton[] figureButtonsArr = {rectangleButton, circleButton, squareButton, ellipseButton};
     private final static Color DEFAULT_FILL_COLOR = Color.YELLOW;
     private final ColorPicker fillColorPicker = new ColorPicker(DEFAULT_FILL_COLOR);
+    private final TextArea labelText= new TextArea();
     private final static Cursor HAND = Cursor.HAND;
 
     private void setButton(ToggleButton tool){
@@ -68,7 +72,6 @@ public class Tools extends VBox {
         getChildren().addAll(toolsArr);
         getChildren().add(fillColorPicker);
         getChildren().add(label);
-        TextArea labelText= new TextArea();
         labelText.setPrefHeight(50);
         getChildren().add(labelText);
         setButton(saveButton);
@@ -92,7 +95,7 @@ public class Tools extends VBox {
     public void saveAction(EventHandler<ActionEvent> action){saveButton.setOnAction(action);}
 
     public String getText(){
-        return label.getText();
+        return labelText.getText();
     }
 
     public Color getFillColor() {
@@ -129,6 +132,20 @@ public class Tools extends VBox {
 
     public void setButtonsDisable(boolean set) {
         saveButton.setDisable(set);
-        label.setDisable(set);
+        labelText.setDisable(set);
     }
+
+    public void clearTextArea(){
+        labelText.clear();
+    }
+
+    public void setTextArea(List<String> labels){
+        StringBuilder toSend = new StringBuilder();
+        for (String label : labels){
+            toSend.append(label);
+            toSend.append("\n");
+        }
+        labelText.setText(toSend.toString());
+    }
+
 }

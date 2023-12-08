@@ -109,6 +109,7 @@ public class PaintPane extends BorderPane {
 		canvas.setOnMouseClicked(event -> {
 
 			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
+				tools.setButtonsDisable(false);
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
@@ -129,6 +130,9 @@ public class PaintPane extends BorderPane {
 				redrawCanvas();
 
 			}
+
+			tools.setTextArea(canvasState.getLabels());
+
 		});
 
 		canvas.setOnMouseDragged(event -> {
@@ -195,10 +199,7 @@ public class PaintPane extends BorderPane {
 			//separamos las labels entre espacios o saltos de linea
 			String[] labels = tools.getText().split("[\\n\\s]+");
 			//si no escribieron etiquetas no hace nada
-			if(labels.length == 0){
-				return;
-			//si se seleccionó más de una figura y estas no estan agrupadas, se desactivan los botones
-			}else{
+			if(labels.length != 0){
 				canvasState.addByLabel(labels);
 			}
 		});
