@@ -10,8 +10,9 @@ public class MainFrame extends VBox {
         CheckPointPane myCheckPoint = new CheckPointPane();
         getChildren().add(myCheckPoint);
         StatusPane statusPane = new StatusPane();
-        getChildren().add(new PaintPane(canvasState, statusPane, myCheckPoint));
-        getChildren().add(new LabelsPane());
+        LabelsPane labelsPane = new LabelsPane();
+        getChildren().add(new PaintPane(canvasState, statusPane, myCheckPoint, labelsPane));
+        getChildren().add(labelsPane);
         getChildren().add(statusPane);
     }
 

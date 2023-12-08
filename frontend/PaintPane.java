@@ -38,11 +38,13 @@ public class PaintPane extends BorderPane {
 
 	//CheckBox
 	private final CheckPointPane checkBoxes;
+	private final LabelsPane labelsPane;
 
-	public PaintPane(CanvasState canvasState, StatusPane statusPane, CheckPointPane checkBoxes) {
+	public PaintPane(CanvasState canvasState, StatusPane statusPane, CheckPointPane checkBoxes, LabelsPane labelsPane) {
 		this.canvasState = canvasState;
 		this.statusPane = statusPane;
 		this.checkBoxes = checkBoxes;
+		this.labelsPane = labelsPane;
 
 
 		canvas.setOnMousePressed(event -> {
@@ -86,6 +88,7 @@ public class PaintPane extends BorderPane {
 				canvasState.addFigure(selector);
 				selector = null;
 			}
+
 		});
 
 		canvas.setOnMouseMoved(event -> {
@@ -109,7 +112,6 @@ public class PaintPane extends BorderPane {
 		canvas.setOnMouseClicked(event -> {
 
 			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
-				tools.setButtonsDisable(false);
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
 				StringBuilder label = new StringBuilder("Se seleccionó: ");
@@ -132,7 +134,9 @@ public class PaintPane extends BorderPane {
 			}
 
 			tools.setTextArea(canvasState.getLabels());
-
+			if(canvasState.selectedFigures().size() == 1){
+				tools.setButtonsDisable(false);
+			}
 		});
 
 		canvas.setOnMouseDragged(event -> {
@@ -161,6 +165,7 @@ public class PaintPane extends BorderPane {
 				redrawCanvas();
 				drawFigure(selector, selector.hasShadow(), selector.hasGradient(), selector.hasArched());
 			}
+
 		});
 
 		tools.deleteAction(event -> {
@@ -214,6 +219,9 @@ public class PaintPane extends BorderPane {
 		tools.resizePAction(event->{canvasState.resizePSelected(); redrawCanvas();});
 		tools.resizeMAction(event->{canvasState.resizeMSelected(); redrawCanvas();});
 
+		labelsPane.onlyAction(event -> {redrawCanvas();});
+		labelsPane.allAction(event -> {redrawCanvas();});
+
 		setLeft(tools);
 		setRight(canvas);
 
@@ -233,9 +241,18 @@ public class PaintPane extends BorderPane {
 
 	private void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		for(Figure figure : canvasState.figures()) {
-			if(figure != null){
-				drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
+		if (labelsPane.onlyButtonIsSelected()){
+			String firstWord = labelsPane.getText().split("\\s+", 2)[0];
+			for (Figure figure : canvasState.labelFigures(firstWord)){
+				if(figure != null){
+					drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
+				}
+			}
+		}else {
+			for(Figure figure : canvasState.figures()) {
+				if(figure != null){
+					drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
+				}
 			}
 		}
 		if(!canvasState.SelectedFiguresIsEmpty()) {

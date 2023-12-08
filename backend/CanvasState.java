@@ -160,14 +160,14 @@ public class CanvasState {
     public void addByLabel(String[] labels) {
         for(String label : labels) {
             for(Figure selected : selectedFigures()){
-                //elimino la figura de las labels que no estan en el nuevo TextArea
-                List<String> toDelete = selected.getOldLabels(labels);
-                deleteOldLabels(toDelete, selected);
                 //si la figura no tiene la label la agrego, sino la dejo donde estaba
                 if(!selected.hasLabel(label)){
                     figuresByLabel.putIfAbsent(label, new HashSet<>());
                     figuresByLabel.get(label).add(selected);
                 }
+                //elimino la figura de las labels que no estan en el nuevo TextArea
+                List<String> toDelete = selected.getOldLabels(labels);
+                deleteOldLabels(toDelete, selected);
             }
         }
     }
@@ -201,5 +201,8 @@ public class CanvasState {
         return new ArrayList<>();
     }
 
+    public Iterable<Figure> labelFigures(String firstWord) {
+        return figuresByLabel.getOrDefault(firstWord, new HashSet<>());
+    }
 }
 

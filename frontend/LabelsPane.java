@@ -1,5 +1,7 @@
 package TP_POO.frontend;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.RadioButton;
@@ -19,25 +21,44 @@ public class LabelsPane extends BorderPane {
     private static final int WIDTH=100;
     private static final Label showLabel= new Label(SHOW);
 
+    private final RadioButton allButton = new RadioButton(ALL);
+    private final RadioButton onlyButton = new RadioButton(ONLY);
+    private final TextArea labelText= new TextArea();
+
     public LabelsPane(){
         setStyle("-fx-background-color: #999");
         HBox lowBox= new HBox();
         lowBox.setPadding(new Insets(SPACING));
         lowBox.setSpacing(SPACING);
-
         ToggleGroup toggleGroup = new ToggleGroup();
-
-        RadioButton allButton = new RadioButton(ALL);
         allButton.setToggleGroup(toggleGroup);
-        RadioButton onlyButton = new RadioButton(ONLY);
         onlyButton.setToggleGroup(toggleGroup);
-        javafx.scene.control.TextArea labelText= new TextArea();
         labelText.setPrefWidth(WIDTH);
         labelText.setPrefHeight(5);
         getChildren().add(labelText);
-
         lowBox.getChildren().addAll(showLabel, allButton, onlyButton, labelText);
         lowBox.setAlignment(Pos.CENTER);
         setBottom(lowBox);
     }
+
+    public boolean allButtonIsSelected(){
+        return allButton.isSelected();
+    }
+    public boolean onlyButtonIsSelected(){
+        return onlyButton.isSelected();
+    }
+
+    public String getText(){
+        return labelText.getText();
+    }
+
+    public void onlyAction(EventHandler<ActionEvent> action){
+        onlyButton.setOnAction(action);
+    }
+
+    public void allAction(EventHandler<ActionEvent> action){
+        allButton.setOnAction(action);
+    }
+
+
 }
