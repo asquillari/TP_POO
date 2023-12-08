@@ -5,9 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -25,10 +23,13 @@ public class Tools extends VBox {
     private final static String VOLTEARV = "Voltear V";
     private final static String ESCALARMAS = "Escalar +";
     private final static String ESCALARMENOS = "Escalar -";
+    private final static String GUARDAR="Guardar";
     private final static int MIN_WIDTH = 90;
     private final static int INSETS_PADDING = 5;
     private final static int PREF_WIDTH = 100;
     private final static int SPACING = 10;
+    private static final String LABEL="Etiquetas";
+    private static final Label label= new Label(LABEL);
 
     // Botones Barra Izquierda
     private final ToggleButton selectionButton = new ToggleButton(SELECCIONAR);
@@ -44,22 +45,33 @@ public class Tools extends VBox {
     private final ToggleButton flipVButton = new ToggleButton(VOLTEARV);
     private final ToggleButton resizePlusButton = new ToggleButton(ESCALARMAS);
     private final ToggleButton resizeMinusButton = new ToggleButton(ESCALARMENOS);
+    private final ToggleButton saveButton= new ToggleButton(GUARDAR);
 
     private final FigureButton[] figureButtonsArr = {rectangleButton, circleButton, squareButton, ellipseButton};
     private final static Color DEFAULT_FILL_COLOR = Color.YELLOW;
     private final ColorPicker fillColorPicker = new ColorPicker(DEFAULT_FILL_COLOR);
     private final static Cursor HAND = Cursor.HAND;
+
+    private void setButton(ToggleButton tool){
+        tool.setMinWidth(MIN_WIDTH);
+        tool.setCursor(HAND);
+    }
     public Tools(){
 
         ToggleButton[] toolsArr = {selectionButton, rectangleButton, circleButton, squareButton, ellipseButton, deleteButton, groupButton, degroupButton, rotateButton, flipHButton, flipVButton, resizePlusButton, resizeMinusButton};
         ToggleGroup tools = new ToggleGroup();
         for (ToggleButton tool : toolsArr) {
-            tool.setMinWidth(MIN_WIDTH);
+            setButton(tool);
             tool.setToggleGroup(tools);
-            tool.setCursor(HAND);
         }
+
         getChildren().addAll(toolsArr);
         getChildren().add(fillColorPicker);
+        getChildren().add(label);
+        TextArea labelText= new TextArea();
+        getChildren().add(labelText);
+        setButton(saveButton);
+        getChildren().add(saveButton);
         setPadding(new Insets(INSETS_PADDING));
         setStyle("-fx-background-color: #999");
         setPrefWidth(PREF_WIDTH);
