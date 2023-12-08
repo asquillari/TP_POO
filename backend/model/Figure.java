@@ -7,6 +7,8 @@ import TP_POO.backend.interfaces.Selectable;
 import javafx.scene.paint.Paint;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Figure implements Movable, Drawable, Selectable, Colorable {
     private double lineWidth;
@@ -17,9 +19,11 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     private boolean gradient;
     private boolean arched;
 
+    private List<String> labels;
 
     public Figure(BackColor lineColor, BackColor fillColor, double lineWidth,boolean shadow, boolean gradient, boolean arched){
         setFigureProperties(lineColor, fillColor, lineWidth, shadow, gradient, arched);
+        this.labels = new ArrayList<>();
     }
 
     public void setFigureProperties(BackColor lineColor, BackColor fillColor, double lineWidth, boolean shadow, boolean gradient, boolean arched) {
@@ -77,6 +81,26 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
 
     public boolean hasArched() {
         return arched;
+    }
+
+    public boolean hasLabel(String label){
+        if(labels.contains(label)){
+            return true;
+        }
+        labels.add(label);
+        return false;
+    }
+    public String[] getOldLabels(String[] newLabels){
+        List<String> toReturn = labels;
+        for (String label : newLabels){
+            labels.add(label);
+        }
+        resetLabels();
+        return toReturn.toArray(new String[0]);
+    }
+
+    private void resetLabels(){
+        labels = new ArrayList<>();
     }
 
     public abstract void implementShadow(boolean shadow);
