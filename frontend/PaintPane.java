@@ -68,8 +68,12 @@ public class PaintPane extends BorderPane {
 
 			// Cuando se suelta el mouse si la figura dibujada no es el rectangulo del selector se almacena en el array
 			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
-				if (!canvasState.selectFigures(selector))
+				if (!canvasState.selectFigures(selector)) {
 					canvasState.resetSelectedFigures();
+				}
+				if(canvasState.selectedFigures().size() > 1 && !canvasState.figuresAreGrouped()) {
+					tools.setButtonsDisable(true);
+				}
 
 				redrawCanvas();
 				//selector = null;
@@ -185,6 +189,18 @@ public class PaintPane extends BorderPane {
 				selector= null;
 				canvasState.resetSelectedFigures();
 				redrawCanvas();
+		});
+
+		tools.saveAction(event -> {
+			//separamos las labels entre espacios o saltos de linea
+			String[] labels = tools.getText().split("[\\n\\s]+");
+			//si no escribieron etiquetas no hace nada
+			if(labels.length == 0){
+				return;
+			//si se seleccionó más de una figura y estas no estan agrupadas, se desactivan los botones
+			}else{
+				canvasState.addByLabel(labels);
+			}
 		});
 
 		checkBoxes.shadowAction(event -> {canvasState.setSelectedFiguresShadow(checkBoxes.isShadowSelected()); redrawCanvas();});

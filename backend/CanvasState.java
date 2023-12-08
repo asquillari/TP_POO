@@ -9,6 +9,7 @@ public class CanvasState {
 
     private final List<Set<Figure>> figures = new ArrayList<>();
     private List<Set<Figure>> selectedFigures= new ArrayList<>();
+    private Map<String,Set<Figure>> figuresByLabel = new HashMap<>();
 
     //agrego una lista con una sola figura a nuestra lista de figuras
     public void addFigure(Figure figure) {
@@ -154,6 +155,43 @@ public class CanvasState {
         for(Figure figure: selectedFigures()){
             figure.resizeM();
         }
+    }
+
+    public void addByLabel(String[] labels) {
+        for(String label : labels) {
+            for(Figure selected : selectedFigures()){
+                //elimino la figura de las labels que no estan en el nuevo TextArea
+                String[] toDelete = selected.getOldLabels(labels);
+                deleteOldLabels(toDelete, selected);
+                //si la figura no tiene la label la agrego, sino la dejo donde estaba
+                if(!selected.hasLabel(label)){
+                    figuresByLabel.putIfAbsent(label, new HashSet<>());
+                    figuresByLabel.get(label).add(selected);
+                }
+            }
+        }
+    }
+
+    private void deleteOldLabels(String[] labels, Figure figure) {
+        for(String label : labels){
+            figuresByLabel.get(label).remove(figure);
+            removeEmptyLabel(label);
+        }
+    }
+
+    private void removeEmptyLabel(String label) {
+        if (figuresByLabel.containsKey(label) && figuresByLabel.get(label).isEmpty()) {
+            figuresByLabel.remove(label);
+        }
+    }
+
+    public boolean figuresAreGrouped(){
+        for (Set<Figure> figuresGroup : figures){
+            if(figuresGroup.equals(selectedFigures())){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

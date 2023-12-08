@@ -89,6 +89,12 @@ public class Tools extends VBox {
         deleteButton.setOnAction(action);
     }
 
+    public void saveAction(EventHandler<ActionEvent> action){saveButton.setOnAction(action);}
+
+    public String getText(){
+        return label.getText();
+    }
+
     public Color getFillColor() {
         return fillColorPicker.getValue();
     }
@@ -121,5 +127,8 @@ public class Tools extends VBox {
         resizeMinusButton.setOnAction(action);
     }
 
-
+    public void setButtonsDisable(boolean set) {
+        saveButton.setDisable(set);
+        label.setDisable(set);
+    }
 }
