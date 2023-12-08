@@ -19,20 +19,17 @@ public class CheckPointPane extends BorderPane {
     private static final String LABEL="Efectos: ";
     private static final int SPACING=10;
     private static final Label label= new Label(LABEL);
-    private CheckBox cbShadow = new CheckBox(SHADOW);
+    private final CheckBox cbShadow = new CheckBox(SHADOW);
 
-    private CheckBox cbGradient = new CheckBox(GRADIENT);
+    private final CheckBox cbGradient = new CheckBox(GRADIENT);
 
-    private CheckBox cbArch = new CheckBox(ARCH);
+    private final CheckBox cbArch = new CheckBox(ARCH);
 
     private boolean commonShadowState;
     private boolean commonGradientState;
     private boolean commonArchState;
 
     public CheckPointPane(){
-        initialize();
-    }
-    public void initialize(){
         setStyle("-fx-background-color: #999");
         HBox topBox = new HBox();
         topBox.setPadding(new Insets(SPACING));
