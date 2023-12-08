@@ -134,7 +134,7 @@ public class PaintPane extends BorderPane {
 			}
 
 			tools.setTextArea(canvasState.getLabels());
-			if(canvasState.selectedFigures().size() == 1){
+			if(canvasState.selectedFigures().size() == 1 || canvasState.figuresAreGrouped()){
 				tools.setButtonsDisable(false);
 			}
 		});
