@@ -69,6 +69,7 @@ public class Tools extends VBox {
         getChildren().add(fillColorPicker);
         getChildren().add(label);
         TextArea labelText= new TextArea();
+        labelText.setPrefHeight(50);
         getChildren().add(labelText);
         setButton(saveButton);
         getChildren().add(saveButton);
