@@ -1,5 +1,6 @@
 package TP_POO.backend;
 
+import TP_POO.backend.interfaces.SetEffect;
 import TP_POO.backend.model.*;
 
 import java.util.*;
@@ -69,32 +70,27 @@ public class CanvasState {
         selectedFigures = new ArrayList<>();
     }
 
+    // Métodos específicos para tus operaciones
     public void moveSelectedFigures(double diffX, double diffY) {
-        for(Set<Figure> selectedFigures : selectedFigures) {
-            for(Figure selectedFigure : selectedFigures) {
-                selectedFigure.move(diffX, diffY);
-            }
-        }
+        setFigures(figure -> figure.move(diffX, diffY));
     }
 
     public void setSelectedFiguresShadow(boolean shadow) {
-        for(Set<Figure> selectedFigures : selectedFigures) {
-            for(Figure selectedFigure : selectedFigures) {
-                selectedFigure.setShadow(shadow);
-            }
-        }
+        setFigures(figure -> figure.setShadow(shadow));
     }
+
     public void setSelectedFiguresGradient(boolean gradient) {
-        for(Set<Figure> selectedFigures : selectedFigures) {
-            for(Figure selectedFigure : selectedFigures) {
-                selectedFigure.setGradient(gradient);
-            }
-        }
+        setFigures(figure -> figure.setGradient(gradient));
     }
+
     public void setSelectedFiguresArched(boolean arched) {
-        for(Set<Figure> selectedFigures : selectedFigures) {
-            for(Figure selectedFigure : selectedFigures) {
-                selectedFigure.setArched(arched);
+        setFigures(figure -> figure.setArched(arched));
+    }
+
+    private void setFigures(SetEffect setter){
+        for (Set<Figure> selectedSet : selectedFigures) {
+            for (Figure selectedFigure : selectedSet) {
+                setter.setEffect(selectedFigure);
             }
         }
     }
@@ -115,7 +111,6 @@ public class CanvasState {
         resetSelectedFigures();
     }
 
-
     public boolean belongsToASelectedFigure(Point eventPoint) {
         for(Set<Figure> selectedFigures : selectedFigures) {
             for (Figure selectedFigure : selectedFigures) {
@@ -130,30 +125,25 @@ public class CanvasState {
         figures.removeIf(set -> set.contains(figure));
     }
 
+    // metodos de rotacion
     public void rotateSelected() {
-        for(Figure figure: selectedFigures()){
-            figure.rotate();
-        }
+        turnFigures(Figure::rotate);
     }
-
-    public void flipHSelected(){
-        for(Figure figure: selectedFigures()){
-            figure.flipH();
-        }
+    public void flipHSelected() {
+        turnFigures(Figure::flipH);
     }
-    public void flipVSelected(){
-        for(Figure figure: selectedFigures()){
-            figure.flipV();
-        }
+    public void flipVSelected() {
+        turnFigures(Figure::flipV);
     }
-    public void resizePSelected(){
-        for(Figure figure: selectedFigures()){
-            figure.resizeP();
-        }
+    public void resizePSelected() {
+        turnFigures(Figure::resizeP);
     }
-    public void resizeMSelected(){
+    public void resizeMSelected() {
+        turnFigures(Figure::resizeM);
+    }
+    private void turnFigures(SetEffect setter){
         for(Figure figure: selectedFigures()){
-            figure.resizeM();
+            setter.setEffect(figure);
         }
     }
 

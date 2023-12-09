@@ -37,8 +37,8 @@ public class DrawableEllipse extends Ellipse {
         if(arch) {
             double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
             double arcY = getCenterPoint().getY() - getsMinorAxis()/2;
-            double offset = 6.5;
-            gc.setLineWidth(10);
+            gc.setLineWidth(5);
+            double offset = 3.5;
             gc.setStroke(Color.LIGHTGRAY);
             gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + 2 * offset, sMinorAxis + 2 * offset, 45, 180, ArcType.OPEN);
             gc.setStroke(Color.BLACK);

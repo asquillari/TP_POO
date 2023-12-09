@@ -49,8 +49,8 @@ public class DrawableSquare extends Square {
             double y = getTopLeft().getY();
             double width = distance(x , getBottomRight().getX());
             double height = distance(y , getBottomRight().getY());
-            gc.setLineWidth(10);
-            double offset = 6;
+            gc.setLineWidth(5);
+            double offset = 3;
             gc.setStroke(Color.LIGHTGRAY);
             gc.strokeLine(x - offset, y - offset, x + width + offset, y - offset);
             gc.strokeLine(x - offset, y - offset, x - offset, y + height + offset);

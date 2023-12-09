@@ -78,7 +78,6 @@ public class PaintPane extends BorderPane {
 				}
 
 				redrawCanvas();
-				//selector = null;
 				return;
 			}
 
@@ -86,7 +85,7 @@ public class PaintPane extends BorderPane {
 			// Si el botón de selección está activo, 'currentFigure' es el rectángulo de selección, entonces no se agrega
 			if(!tools.isSelectionButtonSelected()) {
 				canvasState.addFigure(selector);
-				selector = null;
+				resetSelector();
 			}
 
 		});
@@ -101,12 +100,7 @@ public class PaintPane extends BorderPane {
 					label.append(figure.toString());
 				}
 			}
-			if(found) {
-				statusPane.updateStatus(label.toString());
-			} else {
-				statusPane.updateStatus(eventPoint.toString());
-			}
-
+			statusPane.updateStatus(found ? label.toString() : eventPoint.toString());
 		});
 
 		canvas.setOnMouseClicked(event -> {
@@ -124,11 +118,7 @@ public class PaintPane extends BorderPane {
 						checkBoxes.setSelected(figure.hasShadow(), figure.hasGradient(), figure.hasArched());
 					}
 				}
-				if (found) {
-					statusPane.updateStatus(label.toString());
-				} else {
-					statusPane.updateStatus("Ninguna figura encontrada");
-				}
+				statusPane.updateStatus(found ? label.toString() : "Ninguna figura encontrada");
 				redrawCanvas();
 
 			}
@@ -153,7 +143,7 @@ public class PaintPane extends BorderPane {
 			}
 			if (!isEndPointValid(eventPoint)) {
 				redrawCanvas();
-				selector = null;
+				resetSelector();
 				return;
 			}
 			if (tools.isSelectionButtonSelected() && canvasState.SelectedFiguresIsEmpty()) {
@@ -184,7 +174,7 @@ public class PaintPane extends BorderPane {
 				}
 				canvasState.addFigure(toAdd);
 			}
-			selector= null;
+			resetSelector();
 			canvasState.resetSelectedFigures();
 			redrawCanvas();
 		});
@@ -195,7 +185,7 @@ public class PaintPane extends BorderPane {
 				for (Figure figure : degroupSet) {
 					canvasState.addFigure(figure);
 				}
-				selector= null;
+				resetSelector();
 				canvasState.resetSelectedFigures();
 				redrawCanvas();
 		});
@@ -281,5 +271,9 @@ public class PaintPane extends BorderPane {
     }
 	private boolean isEndPointValid(Point endPoint) {
 		return !(endPoint.getX() < startPoint.getX() || endPoint.getY() < startPoint.getY());
+	}
+
+	private void resetSelector() {
+		selector = null;
 	}
 }

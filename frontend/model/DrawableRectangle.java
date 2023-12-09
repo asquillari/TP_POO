@@ -33,6 +33,7 @@ public class DrawableRectangle extends Rectangle {
     public void implementShadow(boolean shadow) {
         if(shadow){
             gc.setFill(Color.GRAY);
+            double offset = 6;
             gc.fillRect(getTopLeft().getX() + 10.0,
                     getTopLeft().getY() + 10.0,
                     Math.abs(getTopLeft().getX() - getBottomRight().getX()),
@@ -46,8 +47,8 @@ public class DrawableRectangle extends Rectangle {
             double y = getTopLeft().getY();
             double width = distance(x , getBottomRight().getX());
             double height = distance(y , getBottomRight().getY());
-            gc.setLineWidth(10);
-            double offset = 6;
+            gc.setLineWidth(5);
+            double offset = 3;
             gc.setStroke(Color.LIGHTGRAY);
             gc.strokeLine(x - offset, y - offset, x + width + offset, y - offset);
             gc.strokeLine(x - offset, y - offset, x - offset, y + height + offset);
@@ -55,7 +56,6 @@ public class DrawableRectangle extends Rectangle {
             gc.strokeLine(x + width + offset, y - offset, x + width + offset, y + height + offset);
             gc.strokeLine(x - offset, y + height + offset, x + width + offset, y + height + offset);
         }
-
     }
     @Override
     public void implementGradient(boolean gradient) {
