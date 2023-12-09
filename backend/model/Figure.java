@@ -84,11 +84,7 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     }
 
     public boolean hasLabel(String label){
-        if(labels.contains(label)){
-            return true;
-        }
-        labels.add(label);
-        return false;
+        return labels.contains(label);
     }
 
     //devuelve las viejas etiquetas reemplazandolas por las nuevas, labels deberia ser un array

@@ -163,7 +163,7 @@ public class PaintPane extends BorderPane {
 			}
 			if(selector != null) {
 				redrawCanvas();
-				drawFigure(selector, selector.hasShadow(), selector.hasGradient(), selector.hasArched());
+				drawFigure(selector, selector.hasShadow(), selector.hasGradient(), selector.hasArched(), true);
 			}
 
 		});
@@ -243,15 +243,15 @@ public class PaintPane extends BorderPane {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		if (labelsPane.onlyButtonIsSelected()){
 			String firstWord = labelsPane.getText().split("\\s+", 2)[0];
-			for (Figure figure : canvasState.labelFigures(firstWord)){
+			for (Figure figure : canvasState.figures()){
 				if(figure != null){
-					drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
+					drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched(), figure.hasLabel(firstWord));
 				}
 			}
 		}else {
 			for(Figure figure : canvasState.figures()) {
 				if(figure != null){
-					drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched());
+					drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched(), true);
 				}
 			}
 		}
@@ -260,9 +260,11 @@ public class PaintPane extends BorderPane {
 		}
 	}
 
-	private void drawFigure(Figure figure, boolean shadow, boolean gradient, boolean arch) {
-		gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : figure.getLineColor().toFxColor());
-		figure.draw(shadow, gradient, arch);
+	private void drawFigure(Figure figure, boolean shadow, boolean gradient, boolean arch, boolean hasLabel) {
+		if(hasLabel) {
+			gc.setStroke(canvasState.selectedFigures().contains(figure) ? Color.RED : figure.getLineColor().toFxColor());
+			figure.draw(shadow, gradient, arch);
+		}
 	}
 	private boolean figureBelongs(Figure figure, Point eventPoint) {
 		if(figure != null){

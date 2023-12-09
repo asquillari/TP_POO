@@ -160,13 +160,13 @@ public class CanvasState {
     public void addByLabel(String[] labels) {
         for(String label : labels) {
             for(Figure selected : selectedFigures()){
-                //si la figura no tiene la label la agrego, sino la dejo donde estaba
+                //eliminamos las figuras viejas
+                List<String> toDelete = selected.getOldLabels(labels);
+                deleteOldLabels(toDelete, selected);
+                //agregamos las nuevas
                 figuresByLabel.putIfAbsent(label, new HashSet<>());
                 figuresByLabel.get(label).add(selected);
 
-                //elimino la figura de las labels que no estan en el nuevo TextArea
-                List<String> toDelete = selected.getOldLabels(labels);
-                deleteOldLabels(toDelete, selected);
             }
         }
     }
