@@ -47,15 +47,16 @@ public class DrawableSquare extends Square {
         if (arch){
             double x = getTopLeft().getX();
             double y = getTopLeft().getY();
-            double width = Math.abs(x - getBottomRight().getX());
-            double height = Math.abs(y - getBottomRight().getY());
+            double width = distance(x , getBottomRight().getX());
+            double height = distance(y , getBottomRight().getY());
             gc.setLineWidth(10);
+            double offset = 6;
             gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeLine(x, y, x + width, y);
-            gc.strokeLine(x, y, x, y + height);
+            gc.strokeLine(x - offset, y - offset, x + width + offset, y - offset);
+            gc.strokeLine(x - offset, y - offset, x - offset, y + height + offset);
             gc.setStroke(Color.BLACK);
-            gc.strokeLine(x + width, y, x + width, y + height);
-            gc.strokeLine(x, y + height, x + width, y + height);
+            gc.strokeLine(x + width + offset, y - offset, x + width + offset, y + height + offset);
+            gc.strokeLine(x - offset, y + height + offset, x + width + offset, y + height + offset);
         }
     }
     @Override

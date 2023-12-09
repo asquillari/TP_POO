@@ -42,13 +42,14 @@ public class DrawableCircle extends Circle {
     @Override
     public void implementArch(boolean arch) {
         if(arch) {
-            double arcX = getCenterPoint().getX() - getRadius();
-            double arcY = getCenterPoint().getY() - getRadius();
+            double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
+            double arcY = getCenterPoint().getY() - getsMinorAxis()/2;
+            double offset = 6.5;
             gc.setLineWidth(10);
             gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeArc(arcX, arcY, getDiamiter(), getDiamiter(), 45, 180, ArcType.OPEN);
+            gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + 2 * offset, sMinorAxis + 2 * offset, 45, 180, ArcType.OPEN);
             gc.setStroke(Color.BLACK);
-            gc.strokeArc(arcX, arcY, getDiamiter(), getDiamiter(), 225, 180, ArcType.OPEN);
+            gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + 2 * offset, sMinorAxis + 2 * offset, 225, 180, ArcType.OPEN);
         }
     }
     @Override
