@@ -185,14 +185,19 @@ public class CanvasState {
 
     public List<String> getLabels() {
         List<String> toReturn = new ArrayList<>();
-        for (Figure figure : selectedFigures()){
+        for (Figure figure : selectedFigures()) {
             toReturn.addAll(figure.getLabels());
         }
         return toReturn;
     }
 
-    public Iterable<Figure> labelFigures(String firstWord) {
-        return figuresByLabel.getOrDefault(firstWord, new HashSet<>());
+    public Figure getFigureOnPoint(Point eventPoint) {
+        for(Figure figure: figures()){
+            if(figure.contains(eventPoint)){
+                return figure;
+            }
+        }
+        return null;
     }
 }
 

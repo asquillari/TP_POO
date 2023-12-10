@@ -96,16 +96,11 @@ public class PaintPane extends BorderPane {
 		});
 
 		canvas.setOnMouseMoved(event -> {
+			if(!canvasState.SelectedFiguresIsEmpty())
+				return;
 			Point eventPoint = new Point(event.getX(), event.getY());
-			boolean found = false;
-			StringBuilder label = new StringBuilder();
-			for(Figure figure : canvasState.figures()) {
-				if(figureBelongs(figure, eventPoint)) {
-					found = true;
-					label.append(figure.toString());
-				}
-			}
-			statusPane.updateStatus(found ? label.toString() : eventPoint.toString());
+			Figure figureOnPoint = canvasState.getFigureOnPoint(eventPoint);
+			statusPane.updateStatus(figureOnPoint== null? eventPoint.toString():figureOnPoint.toString());
 		});
 
 		canvas.setOnMouseClicked(event -> {
