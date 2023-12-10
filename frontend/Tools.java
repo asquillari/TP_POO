@@ -22,7 +22,7 @@ public class Tools extends VBox {
     private final static  String AGRUPAR = "Agrupar";
     private final static String DESAGRUPAR = "Desagrupar";
     private final static String GIRARD = "Girar D";
-    private final static String VOLTEARH = "Voldear H";
+    private final static String VOLTEARH = "Voltear H";
     private final static String VOLTEARV = "Voltear V";
     private final static String ESCALARMAS = "Escalar +";
     private final static String ESCALARMENOS = "Escalar -";

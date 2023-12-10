@@ -73,16 +73,16 @@ public abstract class Ellipse extends Figure {
 
     @Override
     public boolean contains(Point point) {
-        return ((Math.pow(point.getX() - getCenterPoint().getX(), TWO) / Math.pow(getsMayorAxis(), TWO)) +
-                (Math.pow(point.getY() - getCenterPoint().getY(), TWO) / Math.pow(getsMinorAxis(), TWO))) <= 0.30;
+        return ((Math.pow(point.getX() - getCenterPoint().getX(), 2) / Math.pow(getsMayorAxis(), 2)) +
+                (Math.pow(point.getY() - getCenterPoint().getY(), 2) / Math.pow(getsMinorAxis(), 2))) <= 0.30;
     }
 
     @Override
     public boolean isContained(Figure figure) {
-        Point left = new Point(centerPoint.getX() - sMayorAxis/TWO, centerPoint.getY());
-        Point right = new Point(centerPoint.getX() + sMayorAxis/TWO, centerPoint.getY());
-        Point bottom = new Point(centerPoint.getX(), centerPoint.getY() + sMinorAxis/TWO);
-        Point top = new Point(centerPoint.getX(), centerPoint.getY() - sMinorAxis/TWO);
+        Point left = new Point(centerPoint.getX() - sMayorAxis/2, centerPoint.getY());
+        Point right = new Point(centerPoint.getX() + sMayorAxis/2, centerPoint.getY());
+        Point bottom = new Point(centerPoint.getX(), centerPoint.getY() + sMinorAxis/2);
+        Point top = new Point(centerPoint.getX(), centerPoint.getY() - sMinorAxis/2);
         return figure.contains(left) && figure.contains(right) && figure.contains(bottom) && figure.contains(top);
     }
 

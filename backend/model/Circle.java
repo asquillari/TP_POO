@@ -3,12 +3,12 @@ package TP_POO.backend.model;
 public abstract class Circle extends Ellipse{
 
     public Circle(Point centerPoint, double radius, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient,boolean arch) {
-        super(centerPoint, TWO*radius, TWO*radius, fillColor, lineColor, lineWidth, shadow, gradient, arch);
+        super(centerPoint, 2*radius, 2*radius, fillColor, lineColor, lineWidth, shadow, gradient, arch);
     }
 
     @Override
     public String toString() {
-        return String.format("Círculo [Centro: %s, Radio: %.2f]", centerPoint, sMayorAxis/TWO);
+        return String.format("Círculo [Centro: %s, Radio: %.2f]", centerPoint, sMayorAxis/2);
     }
 
     public Point getCenterPoint() {
@@ -16,8 +16,8 @@ public abstract class Circle extends Ellipse{
     }
 
     public double getRadius() {
-        return sMayorAxis/TWO;
+        return sMayorAxis/2;
     }
-    public double getDiamiter(){return getRadius() * TWO;}
+    public double getDiamiter(){return getRadius() * 2;}
 
 }

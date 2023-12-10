@@ -37,8 +37,8 @@ public abstract class Rectangle extends Figure {
     @Override
     public void rotate() {
         // Obtener las coordenadas de los puntos
-        double centerX = (topLeft.getX() + bottomRight.getX()) / TWO;
-        double centerY = (topLeft.getY() + bottomRight.getY()) / TWO;
+        double centerX = (topLeft.getX() + bottomRight.getX()) / 2;
+        double centerY = (topLeft.getY() + bottomRight.getY()) / 2;
 
         // Calcular las nuevas coordenadas después de una rotación de 90 grados
         Point newTopLeft = new Point(centerX - (bottomRight.getY() - centerY), centerY - (centerX - topLeft.getX()));

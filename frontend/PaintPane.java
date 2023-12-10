@@ -52,9 +52,8 @@ public class PaintPane extends BorderPane {
 		this.labelsPane = labelsPane;
 
 
-		canvas.setOnMousePressed(event -> {
-			startPoint = new Point(event.getX(), event.getY());
-		});
+		canvas.setOnMousePressed(event ->
+			startPoint = new Point(event.getX(), event.getY()));
 
 		canvas.setOnMouseReleased(event -> {
 			Point endPoint = new Point(event.getX(), event.getY());
@@ -114,7 +113,7 @@ public class PaintPane extends BorderPane {
 					if(figureBelongs(figure, eventPoint)) {
 						found = true;
 						canvasState.addSelectedFigure(figure);
-						label.append(figure.toString());
+						label.append(figure);
 						checkBoxes.setSelected(figure.hasShadow(), figure.hasGradient(), figure.hasArched());
 					}
 				}
@@ -209,8 +208,8 @@ public class PaintPane extends BorderPane {
 		tools.resizePAction(event->{canvasState.resizePSelected(); redrawCanvas();});
 		tools.resizeMAction(event->{canvasState.resizeMSelected(); redrawCanvas();});
 
-		labelsPane.onlyAction(event -> {redrawCanvas();});
-		labelsPane.allAction(event -> {redrawCanvas();});
+		labelsPane.onlyAction(event -> redrawCanvas());
+		labelsPane.allAction(event -> redrawCanvas());
 
 		setLeft(tools);
 		setRight(canvas);

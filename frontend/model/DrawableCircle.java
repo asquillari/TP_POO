@@ -25,8 +25,8 @@ public class DrawableCircle extends Circle {
         gc.setLineWidth(this.getLineWidth());
         implementGradient(gradient);
 
-        gc.strokeOval(getCenterPoint().getX() - (getRadius()), getCenterPoint().getY() - (getRadius()), getRadius()*TWO, getRadius()*TWO);
-        gc.fillOval(getCenterPoint().getX() - (getRadius()), getCenterPoint().getY() - (getRadius()), getRadius()*TWO, getRadius()*TWO);
+        gc.strokeOval(getCenterPoint().getX() - (getRadius()), getCenterPoint().getY() - (getRadius()), getRadius()*2, getRadius()*2);
+        gc.fillOval(getCenterPoint().getX() - (getRadius()), getCenterPoint().getY() - (getRadius()), getRadius()*2, getRadius()*2);
         implementArch(arch);
     }
 
@@ -42,13 +42,13 @@ public class DrawableCircle extends Circle {
     @Override
     public void implementArch(boolean arch) {
         if(arch) {
-            double arcX = getCenterPoint().getX() - getsMayorAxis()/TWO;
-            double arcY = getCenterPoint().getY() - getsMinorAxis()/TWO;
+            double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
+            double arcY = getCenterPoint().getY() - getsMinorAxis()/2;
             gc.setLineWidth(LINE_WIDTH);
             gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeArc(arcX - OFFSET, arcY - OFFSET, sMayorAxis + TWO * OFFSET, sMinorAxis + TWO * OFFSET, 45, 180, ArcType.OPEN);
+            gc.strokeArc(arcX - OFFSET, arcY - OFFSET, sMayorAxis + 2 * OFFSET, sMinorAxis + 2 * OFFSET, 45, 180, ArcType.OPEN);
             gc.setStroke(Color.BLACK);
-            gc.strokeArc(arcX - OFFSET, arcY - OFFSET, sMayorAxis + TWO * OFFSET, sMinorAxis + TWO * OFFSET, 225, 180, ArcType.OPEN);
+            gc.strokeArc(arcX - OFFSET, arcY - OFFSET, sMayorAxis + 2 * OFFSET, sMinorAxis + 2 * OFFSET, 225, 180, ArcType.OPEN);
         }
     }
     @Override

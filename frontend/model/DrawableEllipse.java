@@ -22,27 +22,27 @@ public class DrawableEllipse extends Ellipse {
         gc.setFill(getFillColor().toFxColor());
         gc.setLineWidth(this.getLineWidth());
         implementGradient(gradient);
-        gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / TWO), getCenterPoint().getY() - (getsMinorAxis() / TWO), getsMayorAxis(), getsMinorAxis());
-        gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / TWO), getCenterPoint().getY() - (getsMinorAxis() / TWO), getsMayorAxis(), getsMinorAxis());
+        gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
+        gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
         implementArch(arch);
     }
     @Override
     public void implementShadow(boolean shadow) {
         if(shadow){
             gc.setFill(Color.GRAY);
-            gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / TWO) + 10.0, getCenterPoint().getY() - (getsMinorAxis() / TWO) + 10.0, getsMayorAxis(), getsMinorAxis());
+            gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2) + 10.0, getCenterPoint().getY() - (getsMinorAxis() / 2) + 10.0, getsMayorAxis(), getsMinorAxis());
         }
     }
     @Override
     public void implementArch(boolean arch) {
         if(arch) {
-            double arcX = getCenterPoint().getX() - getsMayorAxis()/TWO;
-            double arcY = getCenterPoint().getY() - getsMinorAxis()/TWO;
+            double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
+            double arcY = getCenterPoint().getY() - getsMinorAxis()/2;
             gc.setLineWidth(LINE_WIDTH);
             gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + TWO * ELLIPSE_OFFSET, sMinorAxis + TWO * ELLIPSE_OFFSET, 45, 180, ArcType.OPEN);
+            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + 2 * ELLIPSE_OFFSET, sMinorAxis + 2 * ELLIPSE_OFFSET, 45, 180, ArcType.OPEN);
             gc.setStroke(Color.BLACK);
-            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + TWO * ELLIPSE_OFFSET, sMinorAxis + TWO * ELLIPSE_OFFSET, 225, 180, ArcType.OPEN);
+            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + 2 * ELLIPSE_OFFSET, sMinorAxis + 2 * ELLIPSE_OFFSET, 225, 180, ArcType.OPEN);
         }
     }
     @Override
