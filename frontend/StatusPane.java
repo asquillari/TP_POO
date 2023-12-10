@@ -4,7 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-public class 	StatusPane extends BorderPane {
+public class StatusPane extends BorderPane {
 
 	private final Label statusLabel;
 
