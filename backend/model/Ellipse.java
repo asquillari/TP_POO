@@ -1,8 +1,5 @@
 package TP_POO.backend.model;
 
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 
 public abstract class Ellipse extends Figure {
     protected Point centerPoint;
@@ -26,13 +23,6 @@ public abstract class Ellipse extends Figure {
     @Override
     public String toString() {
         return String.format("Elipse [Centro: %s, DMayor: %.2f, DMenor: %.2f]", centerPoint, sMayorAxis, sMinorAxis);
-    }
-
-    public void setProperties(GraphicsContext gc, double arcX, double arcY, double offset) {
-        gc.setStroke(Color.LIGHTGRAY);
-        gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + TWO * offset, sMinorAxis + TWO * offset, 45, 180, ArcType.OPEN);
-        gc.setStroke(Color.BLACK);
-        gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + TWO * offset, sMinorAxis + TWO * offset, 225, 180, ArcType.OPEN);
     }
 
     public Point getCenterPoint() {
@@ -94,17 +84,6 @@ public abstract class Ellipse extends Figure {
         Point bottom = new Point(centerPoint.getX(), centerPoint.getY() + sMinorAxis/TWO);
         Point top = new Point(centerPoint.getX(), centerPoint.getY() - sMinorAxis/TWO);
         return figure.contains(left) && figure.contains(right) && figure.contains(bottom) && figure.contains(top);
-    }
-
-    public void draw(boolean shadow, boolean gradient, boolean arch, GraphicsContext gc, double parameter1, double parameter2, double parameter3, double parameter4 ){
-        implementShadow(shadow);
-        gc.setFill(getFillColor().toFxColor());
-        gc.setLineWidth(this.getLineWidth());
-        implementGradient(gradient);
-
-        gc.strokeOval(getCenterPoint().getX() - (parameter1), getCenterPoint().getY() - (parameter2), parameter3, parameter4);
-        gc.fillOval(getCenterPoint().getX() - (parameter1), getCenterPoint().getY() - (parameter2), parameter3, parameter4);
-        implementArch(arch);
     }
 
 }

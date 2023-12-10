@@ -5,6 +5,7 @@ import TP_POO.backend.model.Ellipse;
 import TP_POO.backend.model.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
+import javafx.scene.shape.ArcType;
 
 public class DrawableEllipse extends Ellipse {
     private final GraphicsContext gc;
@@ -17,7 +18,13 @@ public class DrawableEllipse extends Ellipse {
 
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
-        draw(shadow, gradient, arch, gc, getsMayorAxis() / TWO, getsMinorAxis() / TWO, getsMayorAxis(), getsMinorAxis());
+        implementShadow(shadow);
+        gc.setFill(getFillColor().toFxColor());
+        gc.setLineWidth(this.getLineWidth());
+        implementGradient(gradient);
+        gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / TWO), getCenterPoint().getY() - (getsMinorAxis() / TWO), getsMayorAxis(), getsMinorAxis());
+        gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / TWO), getCenterPoint().getY() - (getsMinorAxis() / TWO), getsMayorAxis(), getsMinorAxis());
+        implementArch(arch);
     }
     @Override
     public void implementShadow(boolean shadow) {
@@ -32,7 +39,10 @@ public class DrawableEllipse extends Ellipse {
             double arcX = getCenterPoint().getX() - getsMayorAxis()/TWO;
             double arcY = getCenterPoint().getY() - getsMinorAxis()/TWO;
             gc.setLineWidth(LINE_WIDTH);
-            setProperties(gc,arcX, arcY, ELLIPSE_OFFSET);
+            gc.setStroke(Color.LIGHTGRAY);
+            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + TWO * ELLIPSE_OFFSET, sMinorAxis + TWO * ELLIPSE_OFFSET, 45, 180, ArcType.OPEN);
+            gc.setStroke(Color.BLACK);
+            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + TWO * ELLIPSE_OFFSET, sMinorAxis + TWO * ELLIPSE_OFFSET, 225, 180, ArcType.OPEN);
         }
     }
     @Override
