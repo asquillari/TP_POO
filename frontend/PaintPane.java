@@ -15,8 +15,13 @@ public class PaintPane extends BorderPane {
 
 	private static final int CANVAS_WIDTH = 800;
 	private static final int CANVAS_HEIGHT = 600;
-	private static final Color LINE_COLOR = Color.BLACK;
+	private static final int SPEED=100;
 	private static final int LINE_WIDTH = 1;
+	private static final Color LINE_COLOR = Color.BLACK;
+	private static final String SPLIT_FIRST="\\s+";
+	private static final String SPLIT="[\\n\\s]+";
+	private static final String SELECTION="Se seleccionó: ";
+	private static final String NO_FIGURE="Ninguna figura encontrada";
 
 	// BackEnd
 	private final CanvasState canvasState;
@@ -108,7 +113,7 @@ public class PaintPane extends BorderPane {
 			if(tools.isSelectionButtonSelected() && event.isStillSincePress()) {
 				Point eventPoint = new Point(event.getX(), event.getY());
 				boolean found = false;
-				StringBuilder label = new StringBuilder("Se seleccionó: ");
+				StringBuilder label = new StringBuilder(SELECTION);
 
 				for (Figure figure : canvasState.figures()) {
 					if(figureBelongs(figure, eventPoint)) {
@@ -118,7 +123,7 @@ public class PaintPane extends BorderPane {
 						checkBoxes.setSelected(figure.hasShadow(), figure.hasGradient(), figure.hasArched());
 					}
 				}
-				statusPane.updateStatus(found ? label.toString() : "Ninguna figura encontrada");
+				statusPane.updateStatus(found ? label.toString() : NO_FIGURE);
 				redrawCanvas();
 
 			}
@@ -135,8 +140,8 @@ public class PaintPane extends BorderPane {
 			//chequeo que haya figuras seleccionadas y que se este seleccionando el boton de seleccion
 			if(tools.isSelectionButtonSelected() && !canvasState.SelectedFiguresIsEmpty()) {
 
-				double diffX = (eventPoint.getX() - startPoint.getX()) / 100;
-				double diffY = (eventPoint.getY() - startPoint.getY()) / 100;
+				double diffX = (eventPoint.getX() - startPoint.getX()) / SPEED;
+				double diffY = (eventPoint.getY() - startPoint.getY()) / SPEED;
 
 				canvasState.moveSelectedFigures(diffX, diffY);
 				redrawCanvas();
@@ -192,7 +197,7 @@ public class PaintPane extends BorderPane {
 
 		tools.saveAction(event -> {
 			//separamos las labels entre espacios o saltos de linea
-			String[] labels = tools.getText().split("[\\n\\s]+");
+			String[] labels = tools.getText().split(SPLIT);
 			//si no escribieron etiquetas no hace nada
 			if(labels.length != 0){
 				canvasState.addByLabel(labels);
@@ -232,7 +237,7 @@ public class PaintPane extends BorderPane {
 	private void redrawCanvas() {
 		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		if (labelsPane.onlyButtonIsSelected()){
-			String firstWord = labelsPane.getText().split("\\s+", 2)[0];
+			String firstWord = labelsPane.getText().split(SPLIT_FIRST, 2)[0];
 			for (Figure figure : canvasState.figures()){
 				if(figure != null){
 					drawFigure(figure, figure.hasShadow(), figure.hasGradient(), figure.hasArched(), figure.hasLabel(firstWord));
