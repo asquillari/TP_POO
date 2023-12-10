@@ -94,7 +94,6 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
         return labels.contains(label);
     }
 
-    //devuelve las viejas etiquetas reemplazandolas por las nuevas, labels deberia ser un array
     public List<String> getOldLabels(String[] newLabels){
         List<String> toReturn = labels;
         resetLabels();
