@@ -19,11 +19,13 @@ public class LabelsPane extends BorderPane {
     private static final String ONLY="Sólo";
     private static final int SPACING=10;
     private static final int WIDTH=100;
+    private static final double HEIGHT=5;
     private static final Label showLabel= new Label(SHOW);
 
     private final RadioButton allButton = new RadioButton(ALL);
     private final RadioButton onlyButton = new RadioButton(ONLY);
     private final TextArea labelText= new TextArea();
+
 
     public LabelsPane(){
         setStyle("-fx-background-color: #999");
@@ -34,16 +36,13 @@ public class LabelsPane extends BorderPane {
         allButton.setToggleGroup(toggleGroup);
         onlyButton.setToggleGroup(toggleGroup);
         labelText.setPrefWidth(WIDTH);
-        labelText.setPrefHeight(5);
+        labelText.setPrefHeight(HEIGHT);
         getChildren().add(labelText);
         lowBox.getChildren().addAll(showLabel, allButton, onlyButton, labelText);
         lowBox.setAlignment(Pos.CENTER);
         setBottom(lowBox);
     }
 
-    public boolean allButtonIsSelected(){
-        return allButton.isSelected();
-    }
     public boolean onlyButtonIsSelected(){
         return onlyButton.isSelected();
     }

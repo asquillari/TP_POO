@@ -1,5 +1,8 @@
 package TP_POO.backend.model;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+
 public abstract class Rectangle extends Figure {
 
     protected Point topLeft, bottomRight;
@@ -14,7 +17,6 @@ public abstract class Rectangle extends Figure {
         this.topLeft=topLeft;
     }
 
-    //tengo una duda si aca devolvemos P o Point
     public Point getTopLeft() {
         return topLeft;
     }
@@ -37,8 +39,8 @@ public abstract class Rectangle extends Figure {
     @Override
     public void rotate() {
         // Obtener las coordenadas de los puntos
-        double centerX = (topLeft.getX() + bottomRight.getX()) / 2.0;
-        double centerY = (topLeft.getY() + bottomRight.getY()) / 2.0;
+        double centerX = (topLeft.getX() + bottomRight.getX()) / TWO;
+        double centerY = (topLeft.getY() + bottomRight.getY()) / TWO;
 
         // Calcular las nuevas coordenadas después de una rotación de 90 grados
         Point newTopLeft = new Point(centerX - (bottomRight.getY() - centerY), centerY - (centerX - topLeft.getX()));
@@ -62,25 +64,22 @@ public abstract class Rectangle extends Figure {
 
     @Override
     public void resizeP() {
-        double ogWidth = distance(bottomRight.getX(),topLeft.getX());
-        double ogHeight = distance(bottomRight.getY(), topLeft.getY());
-        double increaseFactor = 1.25;
-        double newWidth = ogWidth * increaseFactor;
-        double newHeight = ogHeight * increaseFactor;
-        double offsetX = distance(newWidth, ogWidth);
-        double offsetY = distance(newHeight, ogHeight);
-        setPoints(new Point(topLeft.getX()-offsetX, topLeft.getY()-offsetY), new Point(bottomRight.getX()+offsetX, bottomRight.getY()+offsetY));
+       resize(INCREASE_FACTOR, NEGATIVE);
     }
 
     @Override
     public void resizeM() {
+        resize(DECREASE_FACTOR,POSITIVE);
+    }
+
+    private void resize(double factor, int sign){
         double ogWidth = distance(bottomRight.getX(),topLeft.getX());
         double ogHeight = distance(bottomRight.getY(), topLeft.getY());
-        double newWidth = ogWidth * 0.75;
-        double newHeight = ogHeight * 0.75;
+        double newWidth = ogWidth * factor;
+        double newHeight = ogHeight * factor;
         double offsetX = distance(newWidth, ogWidth);
         double offsetY = distance(newHeight, ogHeight);
-        setPoints(new Point(topLeft.getX()+offsetX, topLeft.getY()+offsetY), new Point(bottomRight.getX()-offsetX, bottomRight.getY()-offsetY));
+        setPoints(new Point(topLeft.getX()+ (sign * offsetX), topLeft.getY()+ (sign* offsetY)), new Point(bottomRight.getX()-(sign*offsetX), bottomRight.getY()-(sign*offsetY)));
     }
 
     @Override
@@ -95,5 +94,38 @@ public abstract class Rectangle extends Figure {
     }
     public double distance(double p1, double p2){
         return Math.abs(p1 - p2);
+    }
+
+    public void draw(boolean shadow, boolean gradient, boolean arch, GraphicsContext gc) {
+        implementShadow(shadow);
+        gc.setFill(getFillColor().toFxColor());
+        gc.setLineWidth(this.getLineWidth());
+        implementGradient(gradient);
+        gc.fillRect(getTopLeft().getX(), getTopLeft().getY(),
+                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
+        gc.strokeRect(getTopLeft().getX(), getTopLeft().getY(),
+                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
+        implementArch(arch);
+    }
+
+
+    public void implementArch(boolean arch, GraphicsContext gc) {
+        if (arch){
+            double x = getTopLeft().getX();
+            double y = getTopLeft().getY();
+            double width = distance(x , getBottomRight().getX());
+            double height = distance(y , getBottomRight().getY());
+            gc.setLineWidth(LINE_WIDTH);
+            gc.setStroke(Color.LIGHTGRAY);
+            double x_offSet=x-OFFSET;
+            double y_offSet=y-OFFSET;
+            x+=width+OFFSET;
+            y+=height+OFFSET;
+            gc.strokeLine(x_offSet, y_offSet, x, y_offSet);
+            gc.strokeLine(x_offSet, y_offSet, x_offSet, y);
+            gc.setStroke(Color.BLACK);
+            gc.strokeLine(x, y_offSet, x, y);
+            gc.strokeLine(x_offSet, y, x, y);
+        }
     }
 }

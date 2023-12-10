@@ -1,8 +1,6 @@
 package TP_POO.frontend;
 
 import TP_POO.backend.model.Figure;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -24,6 +22,7 @@ public class CheckPointPane extends BorderPane {
     private final CheckBox cbGradient = new CheckBox(GRADIENT);
 
     private final CheckBox cbArch = new CheckBox(ARCH);
+    private final CheckBox[] checkBoxesArray={cbShadow, cbGradient, cbArch};
 
     private boolean commonShadowState;
     private boolean commonGradientState;
@@ -83,16 +82,13 @@ public class CheckPointPane extends BorderPane {
         for(Figure current : selected){
             if(current.hasShadow() != first.hasShadow()){
                 indeterminate = true;
-                cbShadow.allowIndeterminateProperty();
-                cbShadow.setIndeterminate(true);
+                setBox(cbShadow);
             }if(current.hasGradient() != first.hasGradient()){
                 indeterminate = true;
-                cbGradient.allowIndeterminateProperty();
-                cbGradient.setIndeterminate(true);
+                setBox(cbGradient);
             }if(current.hasArched() != first.hasArched()){
                 indeterminate = true;
-                cbArch.allowIndeterminateProperty();
-                cbArch.setIndeterminate(true);
+                setBox(cbArch);
             }
             if(!indeterminate){
                 updateStatus(current);
@@ -102,6 +98,11 @@ public class CheckPointPane extends BorderPane {
         cbShadow.setSelected(commonShadowState);
         cbArch.setSelected(commonArchState);
         cbGradient.setSelected(commonGradientState);
+    }
+
+    private void setBox(CheckBox cb){
+        cb.allowIndeterminateProperty();
+        cb.setIndeterminate(true);
     }
 
     private void updateStatus(Figure figure) {
@@ -117,14 +118,13 @@ public class CheckPointPane extends BorderPane {
     }
 
     public void resetBoxes() {
-        cbShadow.setSelected(false);
-        cbGradient.setSelected(false);
-        cbArch.setSelected(false);
-        cbShadow.setIndeterminate(false);
-        cbShadow.setAllowIndeterminate(false);
-        cbGradient.setIndeterminate(false);
-        cbGradient.setAllowIndeterminate(false);
-        cbArch.setIndeterminate(false);
-        cbArch.setAllowIndeterminate(false);
+        for(CheckBox cb: checkBoxesArray){
+            resetBox(cb);
+        }
+    }
+    private void resetBox(CheckBox cb){
+        cb.setSelected(false);
+        cb.setIndeterminate(false);
+        cb.setAllowIndeterminate(false);
     }
 }

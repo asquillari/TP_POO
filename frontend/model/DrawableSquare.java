@@ -5,7 +5,6 @@ import TP_POO.backend.model.Point;
 import TP_POO.backend.model.Square;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
@@ -21,15 +20,7 @@ public class DrawableSquare extends Square {
 
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
-        implementShadow(shadow);
-        gc.setFill(getFillColor().toFxColor());
-        gc.setLineWidth(this.getLineWidth());
-        implementGradient(gradient);
-        gc.fillRect(getTopLeft().getX(), getTopLeft().getY(),
-                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
-        gc.strokeRect(getTopLeft().getX(), getTopLeft().getY(),
-                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
-        implementArch(arch);
+        super.draw(shadow, gradient, arch, gc);
     }
 
     @Override
@@ -44,20 +35,7 @@ public class DrawableSquare extends Square {
     }
     @Override
     public void implementArch(boolean arch) {
-        if (arch){
-            double x = getTopLeft().getX();
-            double y = getTopLeft().getY();
-            double width = distance(x , getBottomRight().getX());
-            double height = distance(y , getBottomRight().getY());
-            gc.setLineWidth(5);
-            double offset = 3;
-            gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeLine(x - offset, y - offset, x + width + offset, y - offset);
-            gc.strokeLine(x - offset, y - offset, x - offset, y + height + offset);
-            gc.setStroke(Color.BLACK);
-            gc.strokeLine(x + width + offset, y - offset, x + width + offset, y + height + offset);
-            gc.strokeLine(x - offset, y + height + offset, x + width + offset, y + height + offset);
-        }
+        implementArch(arch, gc);
     }
     @Override
     public void implementGradient(boolean gradient) {

@@ -5,10 +5,10 @@ import TP_POO.backend.model.Ellipse;
 import TP_POO.backend.model.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
-import javafx.scene.shape.ArcType;
 
 public class DrawableEllipse extends Ellipse {
     private final GraphicsContext gc;
+    private static final double ELLIPSE_OFFSET=3.5;
     public DrawableEllipse(Point centerPoint, double sMayorAxis, double sMinorAxis, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch){
         super(centerPoint, sMayorAxis, sMinorAxis, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
@@ -17,32 +17,22 @@ public class DrawableEllipse extends Ellipse {
 
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
-        implementShadow(shadow);
-        gc.setFill(getFillColor().toFxColor());
-        gc.setLineWidth(this.getLineWidth());
-        implementGradient(gradient);
-        gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
-        gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
-        implementArch(arch);
+        draw(shadow, gradient, arch, gc, getsMayorAxis() / TWO, getsMinorAxis() / TWO, getsMayorAxis(), getsMinorAxis());
     }
     @Override
     public void implementShadow(boolean shadow) {
         if(shadow){
             gc.setFill(Color.GRAY);
-            gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2) + 10.0, getCenterPoint().getY() - (getsMinorAxis() / 2) + 10.0, getsMayorAxis(), getsMinorAxis());
+            gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / TWO) + 10.0, getCenterPoint().getY() - (getsMinorAxis() / TWO) + 10.0, getsMayorAxis(), getsMinorAxis());
         }
     }
     @Override
     public void implementArch(boolean arch) {
         if(arch) {
-            double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
-            double arcY = getCenterPoint().getY() - getsMinorAxis()/2;
-            gc.setLineWidth(5);
-            double offset = 3.5;
-            gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + 2 * offset, sMinorAxis + 2 * offset, 45, 180, ArcType.OPEN);
-            gc.setStroke(Color.BLACK);
-            gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + 2 * offset, sMinorAxis + 2 * offset, 225, 180, ArcType.OPEN);
+            double arcX = getCenterPoint().getX() - getsMayorAxis()/TWO;
+            double arcY = getCenterPoint().getY() - getsMinorAxis()/TWO;
+            gc.setLineWidth(LINE_WIDTH);
+            setProperties(gc,arcX, arcY, ELLIPSE_OFFSET);
         }
     }
     @Override

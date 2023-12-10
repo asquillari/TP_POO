@@ -4,9 +4,7 @@ import TP_POO.backend.model.BackColor;
 import TP_POO.backend.model.Circle;
 import TP_POO.backend.model.Point;
 import javafx.scene.canvas.GraphicsContext;
-
 import javafx.scene.paint.*;
-import javafx.scene.shape.ArcType;
 
 
 public class DrawableCircle extends Circle {
@@ -21,13 +19,7 @@ public class DrawableCircle extends Circle {
 
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
-        implementShadow(shadow);
-        gc.setFill(getFillColor().toFxColor());
-        gc.setLineWidth(this.getLineWidth());
-        implementGradient(gradient);
-        gc.fillOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
-        gc.strokeOval(getCenterPoint().getX() - getRadius(), getCenterPoint().getY() - getRadius(), getRadius() * 2, getRadius() * 2);
-        implementArch(arch);
+        draw(shadow, gradient, arch, gc, getRadius(), getRadius(), getRadius()*TWO, getRadius()*TWO);
     }
 
     @Override
@@ -42,14 +34,10 @@ public class DrawableCircle extends Circle {
     @Override
     public void implementArch(boolean arch) {
         if(arch) {
-            double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
-            double arcY = getCenterPoint().getY() - getsMinorAxis()/2;
-            gc.setLineWidth(5);
-            double offset = 3;
-            gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + 2 * offset, sMinorAxis + 2 * offset, 45, 180, ArcType.OPEN);
-            gc.setStroke(Color.BLACK);
-            gc.strokeArc(arcX - offset, arcY - offset, sMayorAxis + 2 * offset, sMinorAxis + 2 * offset, 225, 180, ArcType.OPEN);
+            double arcX = getCenterPoint().getX() - getsMayorAxis()/TWO;
+            double arcY = getCenterPoint().getY() - getsMinorAxis()/TWO;
+            gc.setLineWidth(LINE_WIDTH);
+            setProperties(gc, arcX, arcY, OFFSET);
         }
     }
     @Override

@@ -1,6 +1,6 @@
 package TP_POO.frontend;
 
-import TP_POO.backend.model.Figure;
+
 import TP_POO.frontend.buttons.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,6 +27,7 @@ public class Tools extends VBox {
     private final static String ESCALARMAS = "Escalar +";
     private final static String ESCALARMENOS = "Escalar -";
     private final static String GUARDAR="Guardar";
+    private final static String CHARACTER="\n";
     private final static int MIN_WIDTH = 90;
     private final static int INSETS_PADDING = 5;
     private final static int PREF_WIDTH = 100;
@@ -135,15 +136,12 @@ public class Tools extends VBox {
         labelText.setDisable(set);
     }
 
-    public void clearTextArea(){
-        labelText.clear();
-    }
 
     public void setTextArea(List<String> labels){
         StringBuilder toSend = new StringBuilder();
         for (String label : labels){
             toSend.append(label);
-            toSend.append("\n");
+            toSend.append(CHARACTER);
         }
         labelText.setText(toSend.toString());
     }

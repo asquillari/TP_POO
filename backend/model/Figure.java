@@ -18,6 +18,13 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     private boolean shadow;
     private boolean gradient;
     private boolean arched;
+    protected static final double INCREASE_FACTOR=1.25;
+    protected static final double DECREASE_FACTOR=0.75;
+    protected static final int POSITIVE=1;
+    protected static final int NEGATIVE=-1;
+    protected static final int TWO=2;
+    protected static final int LINE_WIDTH=5;
+    protected static final double OFFSET=3.0;
 
     private List<String> labels;
 

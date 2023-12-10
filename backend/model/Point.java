@@ -25,8 +25,8 @@ public class Point implements Movable {
     }
 
     @Override
-    public void move(double deltax, double deltay) {
-        this.x += deltax;
-        this.y += deltay;
+    public void move(double deltaX, double deltaY) {
+        this.x += deltaX;
+        this.y += deltaY;
     }
 }
