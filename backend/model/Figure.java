@@ -22,8 +22,8 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
     protected static final double DECREASE_FACTOR=0.75;
     protected static final int POSITIVE=1;
     protected static final int NEGATIVE=-1;
-    protected static final int LINE_WIDTH=5;
     protected static final double OFFSET=3.0;
+    protected static final double ELLIPSE_OFFSET=3.5;
 
     private List<String> labels;
 
@@ -109,9 +109,6 @@ public abstract class Figure implements Movable, Drawable, Selectable, Colorable
         labels = new ArrayList<>();
     }
 
-    public abstract void implementShadow(boolean shadow);
-    public abstract void implementGradient(boolean gradient);
-    public abstract void implementArch(boolean arch);
     public abstract void rotate();
     public abstract void flipH();
     public abstract void flipV();

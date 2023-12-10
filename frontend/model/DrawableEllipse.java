@@ -7,9 +7,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
 import javafx.scene.shape.ArcType;
 
-public class DrawableEllipse extends Ellipse {
+public class DrawableEllipse extends Ellipse implements DrawableFigure{
     private final GraphicsContext gc;
-    private static final double ELLIPSE_OFFSET=3.5;
+
     public DrawableEllipse(Point centerPoint, double sMayorAxis, double sMinorAxis, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch){
         super(centerPoint, sMayorAxis, sMinorAxis, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
@@ -18,41 +18,7 @@ public class DrawableEllipse extends Ellipse {
 
     @Override
     public void draw(boolean shadow, boolean gradient, boolean arch) {
-        implementShadow(shadow);
-        gc.setFill(getFillColor().toFxColor());
-        gc.setLineWidth(this.getLineWidth());
-        implementGradient(gradient);
-        gc.strokeOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
-        gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2), getCenterPoint().getY() - (getsMinorAxis() / 2), getsMayorAxis(), getsMinorAxis());
-        implementArch(arch);
-    }
-    @Override
-    public void implementShadow(boolean shadow) {
-        if(shadow){
-            gc.setFill(Color.GRAY);
-            gc.fillOval(getCenterPoint().getX() - (getsMayorAxis() / 2) + 10.0, getCenterPoint().getY() - (getsMinorAxis() / 2) + 10.0, getsMayorAxis(), getsMinorAxis());
-        }
-    }
-    @Override
-    public void implementArch(boolean arch) {
-        if(arch) {
-            double arcX = getCenterPoint().getX() - getsMayorAxis()/2;
-            double arcY = getCenterPoint().getY() - getsMinorAxis()/2;
-            gc.setLineWidth(LINE_WIDTH);
-            gc.setStroke(Color.LIGHTGRAY);
-            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + 2 * ELLIPSE_OFFSET, sMinorAxis + 2 * ELLIPSE_OFFSET, 45, 180, ArcType.OPEN);
-            gc.setStroke(Color.BLACK);
-            gc.strokeArc(arcX - ELLIPSE_OFFSET, arcY - ELLIPSE_OFFSET, sMayorAxis + 2 * ELLIPSE_OFFSET, sMinorAxis + 2 * ELLIPSE_OFFSET, 225, 180, ArcType.OPEN);
-        }
-    }
-    @Override
-    public void implementGradient(boolean gradient) {
-        if (gradient){
-            RadialGradient radialGradient = new RadialGradient(0, 0, 0.5, 0.5, 0.5, true,
-                    CycleMethod.NO_CYCLE,
-                    new Stop(0, getFillColor().toFxColor()),
-                    new Stop(1, getFillColor().toFxColor().invert()));
-            gc.setFill(radialGradient);
-        }
+        drawOval(shadow, gradient, arch, gc, getCenterPoint(), getsMayorAxis(), getsMinorAxis(), getFillColor(), getLineWidth(), ELLIPSE_OFFSET);
+
     }
 }
