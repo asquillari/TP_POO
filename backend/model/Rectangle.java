@@ -102,9 +102,9 @@ public abstract class Rectangle extends Figure {
         gc.setLineWidth(this.getLineWidth());
         implementGradient(gradient);
         gc.fillRect(getTopLeft().getX(), getTopLeft().getY(),
-                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
+                distance(getTopLeft().getX(), getBottomRight().getX()), distance(getTopLeft().getY(), getBottomRight().getY()));
         gc.strokeRect(getTopLeft().getX(), getTopLeft().getY(),
-                Math.abs(getTopLeft().getX() - getBottomRight().getX()), Math.abs(getTopLeft().getY() - getBottomRight().getY()));
+                distance(getTopLeft().getX(), getBottomRight().getX()), distance(getTopLeft().getY(), getBottomRight().getY()));
         implementArch(arch);
     }
 

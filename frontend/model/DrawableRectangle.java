@@ -27,8 +27,8 @@ public class DrawableRectangle extends Rectangle {
             gc.setFill(Color.GRAY);
             gc.fillRect(getTopLeft().getX() + 10.0,
                     getTopLeft().getY() + 10.0,
-                    Math.abs(getTopLeft().getX() - getBottomRight().getX()),
-                    Math.abs(getTopLeft().getY() - getBottomRight().getY()));
+                    distance(getTopLeft().getX(), getBottomRight().getX()),
+                    distance(getTopLeft().getY(), getBottomRight().getY()));
         }
     }
     @Override
