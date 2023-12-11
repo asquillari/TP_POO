@@ -8,14 +8,13 @@ import javafx.scene.paint.*;
 import javafx.scene.shape.ArcType;
 
 
-public class DrawableCircle extends Circle implements DrawableFigure{
+public class DrawableCircle extends Circle implements DrawableFigureOval{
 
     private final GraphicsContext gc;
 
     public DrawableCircle(Point centerPoint, double radius, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch) {
         super(centerPoint, radius, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
-        draw(shadow, gradient, arch);
     }
 
     @Override

@@ -7,13 +7,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.*;
 import javafx.scene.shape.ArcType;
 
-public class DrawableEllipse extends Ellipse implements DrawableFigure{
+public class DrawableEllipse extends Ellipse implements DrawableFigureOval{
     private final GraphicsContext gc;
 
     public DrawableEllipse(Point centerPoint, double sMayorAxis, double sMinorAxis, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch){
         super(centerPoint, sMayorAxis, sMinorAxis, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
-        draw(shadow, gradient, arch);
     }
 
     @Override

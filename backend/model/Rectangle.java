@@ -90,6 +90,7 @@ public abstract class Rectangle extends Figure {
     public boolean isContained(Figure figure) {
         return figure.contains(topLeft) && figure.contains(bottomRight);
     }
+
     public double distance(double p1, double p2){
         return Math.abs(p1 - p2);
     }

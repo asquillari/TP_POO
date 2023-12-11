@@ -9,13 +9,12 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 
-public class DrawableSquare extends Square implements DrawableFigure{
+public class DrawableSquare extends Square implements DrawableFigureRect{
 
     private final GraphicsContext gc;
     public DrawableSquare(Point topLeft, double size, GraphicsContext gc, BackColor fillColor, BackColor lineColor, double lineWidth, boolean shadow, boolean gradient, boolean arch){
         super(topLeft, size, fillColor, lineColor, lineWidth, shadow, gradient, arch);
         this.gc = gc;
-        draw(shadow, gradient, arch);
     }
 
     @Override
